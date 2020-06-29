@@ -1,4 +1,4 @@
-# rotten_tomatoes
+# Rotten Tomatoes
 
 ## Project setup
 ```
