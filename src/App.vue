@@ -5,29 +5,19 @@
       color="primary"
       dark
     >
-      <v-img
-        alt="Vuetify Logo"
-        class="shrink mr-2"
-        contain
-        src="@/assets/AppBarLogo.svg"
-        transition="scale-transition"
-        width="40"
-      />
+      <router-link :to="{ name: 'home' }">
+        <v-img
+          alt="Rotten Tomatoes"
+          class="shrink mr-2"
+          src="@/assets/AppBarLogo.svg"
+          transition="scale-transition"
+          width="40"
+          contain
+        />
+      </router-link>
       <v-spacer />
-      <v-btn
-        :to="{ name: 'sign-in' }"
-        text
-        class="mr-2"
-      >
-        SIGN UP
-      </v-btn>
-      <v-btn
-        :to="{ name: 'sign-up' }"
-        text
-        class="mr-2"
-      >
-        SIGN IN
-      </v-btn>
+      <sign-up-dialog />
+      <log-in-dialog />
     </v-app-bar>
     <v-content>
       <router-view />
@@ -36,9 +26,15 @@
 </template>
 
 <script>
+import SignUpDialog from '@/components/SignUpDialog'
+import LogInDialog from '@/components/LogInDialog'
 
 export default {
   name: 'App',
+  components: {
+    SignUpDialog,
+    LogInDialog
+  },
   data: () => ({})
 }
 </script>
