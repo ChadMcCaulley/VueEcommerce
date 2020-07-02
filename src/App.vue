@@ -19,9 +19,9 @@
       <sign-up-dialog />
       <log-in-dialog />
     </v-app-bar>
-    <v-content>
+    <v-main>
       <router-view />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -34,7 +34,6 @@ export default {
   components: {
     SignUpDialog,
     LogInDialog
-  },
-  data: () => ({})
+  }
 }
 </script>

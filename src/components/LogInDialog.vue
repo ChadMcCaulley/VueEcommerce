@@ -28,24 +28,46 @@
           <v-icon> mdi-close-circle </v-icon>
         </v-btn>
       </v-card-title>
-      <v-container>
-        <v-text-field
-          label="Username"
-          prepend-inner-icon="mdi-account"
-        />
-        <v-text-field
-          label="Password"
-          append-icon="mdi-eye"
-        />
-        <div class="mt-4 text-center">
-          <v-btn
-            class="dark"
-            color="info"
-          >
-            Log In
-          </v-btn>
-        </div>
-      </v-container>
+      <ValidationObserver v-slot="{ invalid }">
+        <v-form @submit.prevent="logIn">
+          <v-container>
+            <ValidationProvider
+              rules="required"
+              v-slot="{ errors }"
+            >
+              <v-text-field
+                v-model="username"
+                label="Username"
+                prepend-inner-icon="mdi-account"
+                :error-messages="errors"
+              />
+            </ValidationProvider>
+            <ValidationProvider
+              rules="required"
+              v-slot="{ errors }"
+            >
+              <v-text-field
+                v-model="password"
+                label="Password"
+                :type="displayType"
+                :append-icon="displayIcon"
+                :error-messages="errors"
+                @click:append="toggleIcon"
+              />
+            </ValidationProvider>
+            <div class="mt-4 text-center">
+              <v-btn
+                class="dark"
+                color="info"
+                type="submit"
+                :disabled="invalid"
+              >
+                Log In
+              </v-btn>
+            </div>
+          </v-container>
+        </v-form>
+      </ValidationObserver>
     </v-card>
   </v-dialog>
 </template>
@@ -54,7 +76,30 @@
 export default {
   name: 'LogInDialog',
   data: () => ({
-    showDialog: false
-  })
+    showDialog: false,
+    username: null,
+    password: null,
+    displayType: 'password',
+    displayIcon: 'mdi-eye'
+  }),
+  methods: {
+    /**
+     * Change the icon and text display type of the password input
+     */
+    toggleIcon () {
+      this.displayType = this.displayType === 'text' ? 'password' : 'text'
+      this.displayIcon = this.displayIcon === 'mdi-eye' ? 'mdi-eye-off' : 'mdi-eye'
+    },
+    /**
+     * Try to log the user into the server based on their input
+     */
+    logIn () {
+      const params = {
+        username: this.username,
+        password: this.password
+      }
+      this.$store.dispatch('auth/logIn', params)
+    }
+  }
 }
 </script>
