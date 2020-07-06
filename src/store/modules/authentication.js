@@ -25,7 +25,6 @@ export default {
         const res = await axios.post('/api/token-auth/', params)
         commit('setUser', res.data)
       } catch (err) {
-        console.log(err)
       }
     }
   }
