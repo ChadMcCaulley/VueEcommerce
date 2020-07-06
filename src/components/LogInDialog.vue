@@ -32,13 +32,13 @@
         <v-form @submit.prevent="logIn">
           <v-container>
             <ValidationProvider
-              rules="required"
+              rules="required|email"
               v-slot="{ errors }"
             >
               <v-text-field
-                v-model="username"
-                label="Username"
-                prepend-inner-icon="mdi-account"
+                v-model="email"
+                label="Email"
+                prepend-inner-icon="mdi-email"
                 :error-messages="errors"
               />
             </ValidationProvider>
@@ -77,7 +77,7 @@ export default {
   name: 'LogInDialog',
   data: () => ({
     showDialog: false,
-    username: null,
+    email: null,
     password: null,
     displayType: 'password',
     displayIcon: 'mdi-eye'
@@ -95,7 +95,7 @@ export default {
      */
     logIn () {
       const params = {
-        username: this.username,
+        email: this.email,
         password: this.password
       }
       this.$store.dispatch('auth/logIn', params)

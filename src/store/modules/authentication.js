@@ -3,11 +3,15 @@ import axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    loggedIn: false
+    user: null
   },
   mutations: {
-    setLoggedIn (state, loggedIn) {
-      state.loggedIn = loggedIn
+    setUser (state, user) {
+      state.user = {
+        username: user.username,
+        email: user.email
+      }
+      axios.defaults.headers.common.Authorization = user.token
     }
   },
   actions: {
@@ -18,8 +22,8 @@ export default {
      */
     async logIn ({ commit }, params) {
       try {
-        const res = await axios.post('/auth/token-auth/', params)
-        console.log(res)
+        const res = await axios.post('/api/token-auth/', params)
+        commit('setUser', res.data)
       } catch (err) {
         console.log(err)
       }
