@@ -3,9 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
+import axios from 'axios'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import './registerServiceWorker'
 import './validation'
+
+axios.defaults.baseURL = process.env.VUE_APP_AXIOS_BASE_URL || ''
 
 Vue.config.productionTip = false
 
