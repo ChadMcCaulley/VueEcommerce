@@ -10,7 +10,6 @@
           alt="Rotten Tomatoes"
           class="shrink mr-2"
           src="@/assets/AppBarLogo.svg"
-          transition="scale-transition"
           width="40"
           contain
         />
