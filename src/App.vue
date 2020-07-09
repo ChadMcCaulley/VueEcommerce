@@ -15,6 +15,10 @@
         />
       </router-link>
       <v-spacer />
+      <autocomplete
+        solo-inverted
+      />
+      <v-spacer />
       <sign-up-dialog />
       <log-in-dialog />
     </v-app-bar>
