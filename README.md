@@ -1,4 +1,4 @@
-# Rotten Tomatoes
+# Media Scape
 
 ## Project setup
 ```

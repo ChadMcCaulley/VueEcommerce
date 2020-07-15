@@ -7,9 +7,9 @@
     >
       <router-link :to="{ name: 'home' }">
         <v-img
-          alt="Rotten Tomatoes"
+          alt="MediaScape"
           class="shrink mr-2"
-          src="@/assets/AppBarLogo.svg"
+          src="@/assets/Logo.png"
           width="40"
           contain
         />
@@ -19,8 +19,6 @@
         solo-inverted
       />
       <v-spacer />
-      <sign-up-dialog />
-      <log-in-dialog />
     </v-app-bar>
     <v-main>
       <router-view />
@@ -29,14 +27,7 @@
 </template>
 
 <script>
-import SignUpDialog from '@/components/SignUpDialog'
-import LogInDialog from '@/components/LogInDialog'
-
 export default {
-  name: 'App',
-  components: {
-    SignUpDialog,
-    LogInDialog
-  }
+  name: 'App'
 }
 </script>

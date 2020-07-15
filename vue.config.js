@@ -15,7 +15,7 @@ module.exports = {
     config
       .plugin('html')
       .tap(args => {
-        args[0].title = 'Rotten Tomatoes'
+        args[0].title = 'MediaScape'
         return args
       })
   }
