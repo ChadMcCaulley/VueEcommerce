@@ -6,8 +6,8 @@ import vuetify from './plugins/vuetify'
 import Autocomplete from '@/components/Autocomplete'
 import axios from 'axios'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
-import './registerServiceWorker'
-import './validation'
+import '@/registerServiceWorker'
+import '@/plugins/vee-validate'
 
 axios.defaults.baseURL = process.env.VUE_APP_AXIOS_BASE_URL || ''
 

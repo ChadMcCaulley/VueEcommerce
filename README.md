@@ -1,4 +1,4 @@
-# Media Scape
+# Ecom
 
 ## Project setup
 ```

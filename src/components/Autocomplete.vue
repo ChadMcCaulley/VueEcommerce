@@ -1,15 +1,13 @@
 <template>
     <v-autocomplete
-      :append-icon="appendIcon"
-      :hide-details="hideDetails"
-      :solo-inverted="soloInverted"
-      :solo="solo"
+      v-bind="$props"
       prepend-inner-icon="mdi-magnify"
-      label="Search"
+      :label="label"
     />
 </template>
 
 <script>
+// Extended v-autcomplete which allows for infinite scrolling
 import { VAutocomplete } from 'vuetify/lib'
 
 export default {
@@ -17,7 +15,8 @@ export default {
   extends: VAutocomplete,
   props: {
     appendIcon: { type: String, required: false, default: '' },
-    hideDetails: { type: Boolean, required: false, default: true }
+    hideDetails: { type: Boolean, required: false, default: true },
+    label: { type: String, required: false, default: 'Search' }
   }
 }
 </script>
