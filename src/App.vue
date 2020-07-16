@@ -6,13 +6,7 @@
       dark
     >
       <router-link :to="{ name: 'home' }">
-        <v-img
-          alt="MediaScape"
-          class="shrink mr-2"
-          src="@/assets/Logo.png"
-          width="40"
-          contain
-        />
+
       </router-link>
       <v-spacer />
       <autocomplete
