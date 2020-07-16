@@ -12,6 +12,26 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-divider />
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn
+            block
+            color="secondary"
+            class="mb-4"
+            :to="{ name: 'sign-up' }"
+          >
+            Sign up
+          </v-btn>
+          <v-btn
+            block
+            color="secondary darken-2"
+            :to="{ name: 'login' }"
+          >
+            Login
+          </v-btn>
+        </div>
+      </template>
     </v-navigation-drawer>
     <v-app-bar
       app
@@ -23,6 +43,7 @@
       />
       <v-btn
         text
+        v-if="desktop"
         style="font-size: 1.2rem; text-transform: capitalize;"
         @click="$router.push({ name: 'home' })"
       >
@@ -36,12 +57,14 @@
       />
       <v-spacer />
       <v-btn
+        v-if="desktop"
         color="secondary"
         :to="{ name: 'sign-up' }"
       >
         Sign up
       </v-btn>
       <v-btn
+        v-if="desktop"
         color="secondary darken-2"
         class="ml-4"
         :to="{ name: 'login' }"
@@ -51,7 +74,7 @@
       <v-btn
         text
         icon
-        class="mr-2 ml-4"
+        :class="desktop ? 'mr-2 ml-4' : ''"
         @click="$router.push({ name: 'cart' })"
       >
         <v-badge
@@ -80,6 +103,11 @@ export default {
   },
   data: () => ({
     drawer: false
-  })
+  }),
+  computed: {
+    desktop () {
+      return this.$vuetify.breakpoint.smAndUp
+    }
+  }
 }
 </script>
