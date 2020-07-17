@@ -31,6 +31,7 @@
             <v-text-field
               v-model="password"
               label="Password"
+              counter="32"
               :type="displayType"
               :append-icon="displayIcon"
               :error-messages="errors"
