@@ -1,11 +1,22 @@
 <template>
-  <v-snakcbar
-    :value="true"
+  <v-snackbar
+    v-model="showSnackbar"
     :color="snackbar.color"
+    :timeout="snackbar.timeout || '2000'"
     v-bind="$props"
   >
-    {{ snackbar.text }}
-  </v-snakcbar>
+    {{ snackbar.message }}
+    <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          color="white"
+          v-bind="attrs"
+          @click="showSnackbar = false"
+        >
+          Close
+        </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script>
@@ -15,12 +26,15 @@ import { mapState } from 'vuex'
 export default {
   name: 'Snackbar',
   extends: VSnackbar,
+  data: () => ({
+    showSnackbar: false
+  }),
   computed: {
     ...mapState(['snackbar'])
   },
   watch: {
     snackbar () {
-      console.log(this.snackbar)
+      this.showSnackbar = true
     }
   }
 }
