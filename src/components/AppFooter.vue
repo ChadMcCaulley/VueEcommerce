@@ -11,7 +11,7 @@
       <v-btn
         v-for="link in links"
         :key="link.name"
-        @click="$router.push({ name: link.route })"
+        @click="routeToPage(link.route)"
         color="white"
         text
         rounded

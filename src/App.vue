@@ -25,7 +25,7 @@
           </v-btn>
           <v-btn
             block
-            color="secondary darken-2"
+            color="secondary"
             :to="{ name: 'login' }"
           >
             Login
@@ -45,7 +45,7 @@
         text
         v-if="desktop"
         style="font-size: 1.2rem; text-transform: capitalize;"
-        @click="$router.push({ name: 'home' })"
+        @click="routeToPage('home')"
       >
         Ecom
       </v-btn>
@@ -65,7 +65,7 @@
       </v-btn>
       <v-btn
         v-if="desktop"
-        color="secondary darken-2"
+        color="secondary"
         class="ml-4"
         :to="{ name: 'login' }"
       >
@@ -75,7 +75,7 @@
         text
         icon
         :class="desktop ? 'mr-2 ml-4' : ''"
-        @click="$router.push({ name: 'cart' })"
+        @click="routeToPage('cart')"
       >
         <v-badge
           color="secondary"
@@ -88,6 +88,7 @@
     </v-app-bar>
     <v-main>
       <router-view />
+      <snackbar />
     </v-main>
     <app-footer />
   </v-app>
@@ -95,11 +96,13 @@
 
 <script>
 import AppFooter from '@/components/AppFooter'
+import Snackbar from '@/components/Snackbar'
 
 export default {
   name: 'App',
   components: {
-    AppFooter
+    AppFooter,
+    Snackbar
   },
   data: () => ({
     drawer: false
