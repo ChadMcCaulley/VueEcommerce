@@ -114,3 +114,11 @@ export default {
   }
 }
 </script>
+
+<style>
+  .v-main {
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(165deg, var(--v-primary-lighten3), var(--v-secondary-lighten3));
+  }
+</style>

@@ -1,7 +1,7 @@
 <template>
   <v-footer
     v-bind="$props"
-    color="primary lighten-1"
+    color="secondary lighten-1"
     padless
   >
     <v-row
