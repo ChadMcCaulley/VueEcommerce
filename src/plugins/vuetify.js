@@ -13,6 +13,8 @@ export default new Vuetify({
         primary: '#6e1db5',
         secondary: '#435abf',
         accent: '#7543bf',
+        bgPrimary: '#dfd8e6',
+        bgSecondary: '#dddfeb',
         error: '#b71c1c'
       },
       dark: {
