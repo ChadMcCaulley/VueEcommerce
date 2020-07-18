@@ -3,14 +3,17 @@ import axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    user: null
+    user: null,
+    loggedIn: false
+  },
+  getters: {
+    loggedIn (state) { return state.loggedIn }
   },
   mutations: {
-    setToken (state, token) {
-      axios.defaults.headers.Authorization = `Bearer ${token}`
-    },
-    setUser (state, user) {
-      state.user = user
+    setUser (state, res) {
+      axios.defaults.headers.Authorization = `Bearer ${res.token}`
+      state.user = res.user
+      state.loggedIn = true
     }
   },
   actions: {
@@ -23,8 +26,7 @@ export default {
     async login ({ commit }, userInfo) {
       try {
         const res = await axios.post('/api/auth/login/', userInfo)
-        commit('setToken', res.token)
-        commit('setUser', res.user)
+        commit('setUser', res)
       } catch (err) {
         commit('setSnackbar', { message: 'Failed to login', color: 'error' }, { root: true })
       }
