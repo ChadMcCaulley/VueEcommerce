@@ -3,7 +3,6 @@
     v-model="showSnackbar"
     :color="snackbar.color"
     :timeout="snackbar.timeout || '2000'"
-    v-bind="$props"
   >
     {{ snackbar.message }}
     <template v-slot:action="{ attrs }">
@@ -20,12 +19,10 @@
 </template>
 
 <script>
-import { VSnackbar } from 'vuetify/lib'
 import { mapState } from 'vuex'
 
 export default {
   name: 'Snackbar',
-  extends: VSnackbar,
   data: () => ({
     showSnackbar: false
   }),
