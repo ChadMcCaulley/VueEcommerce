@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import AppBar from '@/components/AppBar'
 import AppFooter from '@/components/AppFooter'
 import NavDrawer from '@/components/NavDrawer'
@@ -26,7 +27,13 @@ export default {
   },
   data: () => ({
     drawer: false
-  })
+  }),
+  methods: {
+    ...mapActions({ refreshToken: 'auth/refreshToken' })
+  },
+  mounted () {
+    this.refreshToken()
+  }
 }
 </script>
 
