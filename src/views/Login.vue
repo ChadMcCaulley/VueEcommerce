@@ -10,8 +10,17 @@
       <v-card-title class="justify-center">
         Login
       </v-card-title>
-      <ValidationObserver v-slot="{ invalid }">
+      <ValidationObserver
+        ref="observer"
+        v-slot="{ invalid }"
+      >
         <v-form @submit.prevent="logIn">
+          <p
+            v-if="failed && !loading"
+            style="color: var(--v-error-base); font-size: .9rem;"
+          >
+            The username and password you entered did not match our records. Please double-check and try again.
+          </p>
           <ValidationProvider
             rules="required"
             v-slot="{ errors }"
@@ -28,21 +37,17 @@
             name="Password"
             v-slot="{ errors }"
           >
-            <v-text-field
+            <password-input
               v-model="password"
-              label="Password"
-              counter="32"
-              :type="displayType"
-              :append-icon="displayIcon"
               :error-messages="errors"
-              @click:append="toggleIcon"
             />
           </ValidationProvider>
           <div class="mt-4 text-center">
             <v-btn
               color="secondary"
               type="submit"
-              :disabled="invalid"
+              :loading="loading"
+              :disabled="invalid || loading"
             >
               Log In
             </v-btn>
@@ -54,32 +59,37 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Login',
   data: () => ({
-    showDialog: false,
     username: null,
     password: null,
-    displayType: 'password',
-    displayIcon: 'mdi-eye'
+    failed: false,
+    loading: false
   }),
+  computed: {
+    ...mapGetters({
+      loggedIn: 'auth/loggedIn'
+    })
+  },
   methods: {
-    /**
-     * Change the icon and text display type of the password input
-     */
-    toggleIcon () {
-      this.displayType = this.displayType === 'text' ? 'password' : 'text'
-      this.displayIcon = this.displayIcon === 'mdi-eye' ? 'mdi-eye-off' : 'mdi-eye'
-    },
     /**
      * Try to log the user into the server based on their input
      */
-    logIn () {
+    async logIn () {
+      this.loading = true
       const params = {
         username: this.username,
         password: this.password
       }
-      this.$store.dispatch('auth/login', params)
+      await this.$store.dispatch('auth/login', params)
+      if (this.loggedIn) this.$router.push({ name: 'home' })
+      this.loading = false
+      this.failed = true
+      this.password = null
+      this.$refs.observer.reset()
     }
   }
 }
