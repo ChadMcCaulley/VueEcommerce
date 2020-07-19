@@ -35,7 +35,7 @@
         v-else
         block
         color="warning"
-        @click="logOut"
+        @click="$emit('logOut')"
       >
         Log Out
       </v-btn>
@@ -44,15 +44,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'NavDrawer',
   props: {
-    value: { type: Boolean, required: true }
-  },
-  computed: {
-    ...mapGetters({ loggedIn: 'auth/loggedIn' })
+    value: { type: Boolean, required: true },
+    loggedIn: { type: Boolean, required: true }
   }
 }
 </script>

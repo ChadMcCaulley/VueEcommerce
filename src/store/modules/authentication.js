@@ -7,35 +7,48 @@ export default {
     loggedIn: false
   },
   getters: {
-    loggedIn (state) { return state.loggedIn }
+    loggedIn (state) { return state.loggedIn },
+    user (state) { return state.user }
   },
   mutations: {
-    setUser (state, data) {
-      state.user = data.user
-      state.loggedIn = true
-    },
-    setRefreshToken (state, token) {
-      window.$cookies.set('refresh-token', token)
-    },
     setAccessToken (state, token) {
       axios.defaults.headers.Authorization = `Bearer ${token}`
+    },
+    setLoggedIn (state, loggedIn) {
+      state.loggedIn = loggedIn
+    },
+    setRefreshToken (state, token) {
+      window.$cookies.set('refresh-token', token, '', true)
+    },
+    setUser (state, user) {
+      state.user = user
     }
   },
   actions: {
     /**
      * Log the user into the application if their password and username are in the system
-     * @param {Object} commit
+     * @param {Object} context
      * @param {Object} userInfo
      */
-    async login ({ commit }, userInfo) {
+    async login ({ commit, dispatch }, userInfo) {
       try {
         const res = await axios.post('/api/auth/login/', userInfo)
-        const data = res.data
-        commit('setUser', data)
-        commit('setRefreshToken', data.refresh_token)
-        commit('setAccessToken', data.access_token)
+        dispatch('setLoggedInValues', res.data)
       } catch (err) {
-        commit('setSnackbar', { message: 'Failed to login', color: 'error' }, { root: true })
+        commit('setSnackbar', { message: 'Failed to log in', color: 'error' }, { root: true })
+      }
+    },
+    /**
+     * Log the user out of the system
+     * @param {Object} commit
+     */
+    async logOut ({ commit }) {
+      try {
+        await axios.post('/api/auth/logout/')
+        commit('setUser', null)
+        commit('setLoggedIn', false)
+      } catch (err) {
+        commit('setSnackbar', { message: 'Failed to log out', color: 'error' }, { root: true })
       }
     },
     /**
@@ -50,9 +63,34 @@ export default {
         commit('setAccessToken', tokenRes.data.access)
         const userRes = await axios.get('/api/auth/user/')
         commit('setUser', userRes.data)
+        commit('setLoggedIn', true)
       } catch (err) {
-        commit('setSnackbar', { message: 'Failed to login', color: 'error' }, { root: true })
+        commit('setSnackbar', { message: 'Failed to log in', color: 'error' }, { root: true })
       }
+    },
+    /**
+     * Register a new user
+     * @param {Object} context
+     * @param {Object} newUser
+     */
+    async registration ({ commit, dispatch }, newUser) {
+      try {
+        const res = await axios.post('/api/auth/registration/', newUser)
+        dispatch('setLoggedInValues', res.data)
+      } catch (err) {
+        commit('setSnackbar', { message: 'Failed to log in', color: 'error' }, { root: true })
+      }
+    },
+    /**
+     * Set the user, tokens, and logged in
+     * @param {Object} commit
+     * @param {Object} data
+     */
+    setLoggedInValues ({ commit }, data) {
+      commit('setUser', data.user)
+      commit('setRefreshToken', data.refresh_token)
+      commit('setAccessToken', data.access_token)
+      commit('setLoggedIn', true)
     }
   }
 }

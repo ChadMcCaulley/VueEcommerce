@@ -1,7 +1,15 @@
 <template>
   <v-app>
-    <nav-drawer v-model="drawer" />
-    <app-bar v-model="drawer" />
+    <nav-drawer
+      v-model="drawer"
+      :logged-in="loggedIn"
+      @logOut="logOut"
+    />
+    <app-bar
+      v-model="drawer"
+      :logged-in="loggedIn"
+      @logOut="logOut"
+    />
     <v-main>
       <router-view />
       <snackbar />
@@ -11,7 +19,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import AppBar from '@/components/AppBar'
 import AppFooter from '@/components/AppFooter'
 import NavDrawer from '@/components/NavDrawer'
@@ -29,7 +37,13 @@ export default {
     drawer: false
   }),
   methods: {
-    ...mapActions({ refreshToken: 'auth/refreshToken' })
+    ...mapActions({
+      refreshToken: 'auth/refreshToken',
+      logOut: 'auth/logOut'
+    })
+  },
+  computed: {
+    ...mapGetters({ loggedIn: 'auth/loggedIn' })
   },
   mounted () {
     this.refreshToken()

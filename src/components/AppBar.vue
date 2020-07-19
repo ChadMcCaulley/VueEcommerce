@@ -39,7 +39,7 @@
     <v-btn
       v-else-if="desktop"
       color="warning"
-      @click="logOut"
+      @click="$emit('logOut')"
     >
       Log Out
     </v-btn>
@@ -61,15 +61,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'AppBar',
   props: {
-    value: { type: Boolean, required: true }
+    value: { type: Boolean, required: true },
+    loggedIn: { type: Boolean, required: true }
   },
   computed: {
-    ...mapGetters({ loggedIn: 'auth/loggedIn' }),
     desktop () {
       return this.$vuetify.breakpoint.smAndUp
     }
