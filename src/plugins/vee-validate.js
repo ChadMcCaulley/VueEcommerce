@@ -1,5 +1,5 @@
 import { extend, localize } from 'vee-validate'
-import { required, email, min, max } from 'vee-validate/dist/rules'
+import { required, email, min, max, confirmed } from 'vee-validate/dist/rules'
 
 extend('required', {
   ...required,
@@ -20,6 +20,11 @@ extend('min', {
 extend('max', {
   ...max,
   message: '{_field_} cannot contain more than {length} characters'
+})
+
+extend('confirmed', {
+  ...confirmed,
+  message: 'Passwords do not match'
 })
 
 localize({
