@@ -9,8 +9,7 @@
     />
     <v-btn
       text
-      v-if="desktop"
-      style="font-size: 1.2rem; text-transform: capitalize;"
+      :style="`font-size: ${desktop ? '1.3rem' : '1rem'}; text-transform: capitalize;`"
       @click="routeToPage('home')"
     >
       Ecom
