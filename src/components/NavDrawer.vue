@@ -13,35 +13,33 @@
       </v-list-item-content>
     </v-list-item>
     <v-divider />
-    <template v-slot:append>
-      <div class="pa-2">
-        <div v-if="!loggedIn">
-          <v-btn
-            block
-            color="secondary"
-            class="mb-4"
-            :to="{ name: 'sign-up' }"
-          >
-            Sign up
-          </v-btn>
-          <v-btn
-            block
-            color="secondary"
-            :to="{ name: 'login' }"
-          >
-            Login
-          </v-btn>
-        </div>
+    <div class="pa-2">
+      <div v-if="!loggedIn">
         <v-btn
-          v-else
           block
-          color="warning"
-          @click="logOut"
+          color="secondary"
+          class="mb-4"
+          :to="{ name: 'sign-up' }"
         >
-          Log Out
+          Sign up
+        </v-btn>
+        <v-btn
+          block
+          color="secondary"
+          :to="{ name: 'login' }"
+        >
+          Login
         </v-btn>
       </div>
-    </template>
+      <v-btn
+        v-else
+        block
+        color="warning"
+        @click="logOut"
+      >
+        Log Out
+      </v-btn>
+    </div>
   </v-navigation-drawer>
 </template>
 
