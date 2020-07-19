@@ -5,6 +5,7 @@
     :counter="counter || '32'"
     :type="displayType"
     :append-icon="displayIcon"
+    maxlength="32"
     @click:append="toggleIcon"
     @input="$emit('input', $event)"
   />

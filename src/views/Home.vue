@@ -4,8 +4,7 @@
       <v-col
         v-for="item in items"
         :key="item.id"
-        xs="12"
-        sm="6"
+        xs="6"
         md="4"
         lg="3"
       >
