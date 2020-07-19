@@ -40,6 +40,7 @@
           <ValidationProvider
             rules="required|min:8|max:32"
             name="Password"
+            vid="password"
             v-slot="{ errors }"
           >
             <password-input
@@ -48,12 +49,12 @@
             />
           </ValidationProvider>
           <ValidationProvider
-            rules="required|min:8|max:32"
-            name="Password Confirmation"
+            rules="required|confirmed:password"
+            name="Password"
             v-slot="{ errors }"
           >
             <password-input
-              v-model="passwordConfirm"
+              v-model="confirmPassword"
               label="Confirm Password"
               :error-messages="errors"
             />
@@ -81,7 +82,9 @@ export default {
   name: 'SignUp',
   data: () => ({
     username: null,
+    email: null,
     password: null,
+    confirmPassword: null,
     failed: false,
     loading: false
   }),
@@ -98,9 +101,11 @@ export default {
       this.loading = true
       const params = {
         username: this.username,
-        password: this.password
+        email: this.email,
+        password1: this.password,
+        password2: this.confirmPassword
       }
-      await this.$store.dispatch('auth/signUp', params)
+      await this.$store.dispatch('auth/registration', params)
       if (this.loggedIn) this.$router.push({ name: 'home' })
       this.loading = false
       this.failed = true
