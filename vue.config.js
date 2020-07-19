@@ -20,5 +20,11 @@ module.exports = {
         args[0].title = 'Ecom'
         return args
       })
+  },
+  pwa: {
+    workboxPluginMode: 'InjestManifest',
+    workboxOptions: {
+      swSrc: './src/service-worker.js'
+    }
   }
 }
