@@ -5,6 +5,7 @@
     dark
   >
     <v-app-bar-nav-icon
+      name="Navigation Drawer Button"
       @click="$emit('input', !value)"
     />
     <v-btn
@@ -23,12 +24,14 @@
     <v-spacer />
     <div v-if="desktop && !loggedIn">
       <v-btn
+        name="Sign Up Button"
         color="secondary"
         :to="{ name: 'sign-up' }"
       >
         Sign up
       </v-btn>
       <v-btn
+        name="Login Button"
         color="secondary"
         class="ml-4"
         :to="{ name: 'login' }"
@@ -38,6 +41,7 @@
     </div>
     <v-btn
       v-else-if="desktop"
+      text
       color="warning"
       @click="$emit('logOut')"
     >
@@ -46,6 +50,7 @@
     <v-btn
       text
       icon
+      name="Logout Button"
       :class="desktop ? 'mr-2 ml-4' : ''"
       @click="routeToPage('cart')"
     >

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Cart from '@/views/Cart'
 import Home from '@/views/Home'
+import Item from '@/views/Item'
 import Login from '@/views/Login'
 import SignUp from '@/views/SignUp'
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/cart',
     name: 'cart',
     component: Cart
+  },
+  {
+    path: '/item/:title/:id',
+    name: 'item',
+    component: Item
   }
 ]
 
