@@ -45,6 +45,7 @@ export default {
     async logOut ({ commit }) {
       try {
         await axios.post('/api/auth/logout/')
+        commit('setRefreshToken', null)
         commit('setUser', null)
         commit('setLoggedIn', false)
       } catch (err) {
@@ -58,6 +59,7 @@ export default {
     async refreshToken ({ commit }) {
       try {
         const token = window.$cookies.get('refresh-token')
+        if (!token || token === 'null') return
         const tokenRes = await axios.post('/api/auth/token/refresh/', { refresh: token })
         commit('setRefreshToken', tokenRes.data.refresh)
         commit('setAccessToken', tokenRes.data.access)
