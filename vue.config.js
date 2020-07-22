@@ -22,7 +22,7 @@ module.exports = {
       })
   },
   pwa: {
-    workboxPluginMode: 'InjestManifest',
+    workboxPluginMode: 'InjectManifest',
     workboxOptions: {
       swSrc: './src/service-worker.js'
     }
