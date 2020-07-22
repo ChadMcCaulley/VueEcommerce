@@ -13,7 +13,7 @@
      "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "https://dj-ecommerce.netlify.app/",
   "display": "standalone",
   "background_color": "#FFF",
   "theme_color": "#9343d9"
