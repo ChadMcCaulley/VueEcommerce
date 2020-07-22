@@ -15,7 +15,7 @@ import mixins from '@/mixins'
 import '@/registerServiceWorker'
 import '@/plugins/vee-validate'
 
-axios.defaults.baseURL = process.env.VUE_APP_AXIOS_BASE_URL || ''
+axios.defaults.baseURL = process.env.VUE_APP_AXIOS_BASE_URL || '/api'
 
 Vue.config.productionTip = false
 

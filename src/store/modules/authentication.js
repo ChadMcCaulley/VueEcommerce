@@ -32,7 +32,7 @@ export default {
      */
     async login ({ commit, dispatch }, userInfo) {
       try {
-        const res = await axios.post('/api/auth/login/', userInfo)
+        const res = await axios.post('/auth/login/', userInfo)
         dispatch('setLoggedInValues', res.data)
       } catch (err) {
         commit('setSnackbar', { message: 'Failed to log in', color: 'error' }, { root: true })
@@ -44,7 +44,7 @@ export default {
      */
     async logOut ({ commit }) {
       try {
-        await axios.post('/api/auth/logout/')
+        await axios.post('/auth/logout/')
         commit('setRefreshToken', null)
         commit('setUser', null)
         commit('setLoggedIn', false)
@@ -60,10 +60,10 @@ export default {
       try {
         const token = window.$cookies.get('refresh-token')
         if (!token || token === 'null') return
-        const tokenRes = await axios.post('/api/auth/token/refresh/', { refresh: token })
+        const tokenRes = await axios.post('/auth/token/refresh/', { refresh: token })
         commit('setRefreshToken', tokenRes.data.refresh)
         commit('setAccessToken', tokenRes.data.access)
-        const userRes = await axios.get('/api/auth/user/')
+        const userRes = await axios.get('/auth/user/')
         commit('setUser', userRes.data)
         commit('setLoggedIn', true)
       } catch (err) {
@@ -77,7 +77,7 @@ export default {
      */
     async registration ({ commit, dispatch }, newUser) {
       try {
-        const res = await axios.post('/api/auth/registration/', newUser)
+        const res = await axios.post('/auth/registration/', newUser)
         dispatch('setLoggedInValues', res.data)
       } catch (err) {
         commit('setSnackbar', { message: 'Failed to log in', color: 'error' }, { root: true })
