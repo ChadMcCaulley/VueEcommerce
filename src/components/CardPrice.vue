@@ -2,16 +2,16 @@
   <div class="d-flex">
     {{ price | price }}
     <div
-      v-if="perItemPrice || originalPrice"
+      v-if="quantity > 1 || listPrice"
       style="font-size: .9rem; color: #444;"
       class="ml-1 my-auto"
     >
-      <span v-if="perItemPrice"> ({{ perItemPrice | price }}/Item) </span>
+      <span v-if="quantity > 1"> ({{ (price/quantity) | price }}/Item) </span>
       <span
-        v-if="originalPrice"
+        v-if="listPrice"
         style="text-decoration: line-through;"
       >
-        {{ originalPrice | price }}
+        {{ listPrice | price }}
       </span>
     </div>
   </div>
@@ -21,9 +21,9 @@
 export default {
   name: 'CardPrice',
   props: {
-    price: { type: Number, required: true },
-    perItemPrice: { type: Number, required: false, default: null },
-    originalPrice: { type: Number, required: false, default: null }
+    price: { type: [Number, String], required: true },
+    quantity: { type: Number, required: false, default: null },
+    listPrice: { type: [Number, String], required: false, default: null }
   }
 }
 </script>

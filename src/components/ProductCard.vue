@@ -8,31 +8,31 @@
       :to="link"
     >
       <v-img
-        :src="item.hero_image"
+        :src="product.hero_image || require('@/assets/NoImageFound.png')"
         width="500"
         height="300"
       />
     </router-link>
     <v-card-title class="mb-0 pb-0 title">
       <router-link :to="link">
-        {{ item.title | titleLength }}
+        {{ product.title | titleLength }}
       </router-link>
     </v-card-title>
     <card-rating
       class="ml-3 my-2"
-      :num-ratings="item.num_ratings"
-      :rating="item.rating"
-      :id="item.id"
-      :title="item.title"
+      :num-ratings="product.num_ratings"
+      :rating="product.rating"
+      :id="product.id"
+      :title="product.title"
     />
     <v-card-title class="pt-0 mt-0 title">
       <router-link
         :to="link"
       >
         <card-price
-          :price="item.price"
-          :per-item-price="item.per_item_price"
-          :original-price="item.list_price"
+          :price="product.price"
+          :quantity="product.quantity"
+          :list-price="product.list_price"
         />
       </router-link>
     </v-card-title>
@@ -44,16 +44,16 @@ import CardPrice from '@/components/CardPrice'
 import CardRating from '@/components/CardRating'
 
 export default {
-  name: 'ItemCard',
+  name: 'productCard',
   components: {
     CardPrice,
     CardRating
   },
   props: {
-    item: { type: Object, required: true }
+    product: { type: Object, required: true }
   },
   data: function () {
-    const link = { name: 'item', params: { title: this.item.title, id: this.item.id } }
+    const link = { name: 'product', params: { title: this.product.title, id: this.product.id } }
     return {
       link
     }

@@ -1,9 +1,9 @@
 <template>
-  <h1> This is the item page </h1>
+  <h1> This is the product page </h1>
 </template>
 
 <script>
 export default {
-  name: 'Item'
+  name: 'Product'
 }
 </script>

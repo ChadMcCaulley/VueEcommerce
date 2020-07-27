@@ -18,7 +18,7 @@ export default {
   name: 'RatingPercent',
   props: {
     numStars: { type: String, required: true },
-    percent: { type: Number, required: true }
+    percent: { type: [Number, String], required: true }
   }
 }
 </script>

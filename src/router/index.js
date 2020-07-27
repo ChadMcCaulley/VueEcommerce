@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Cart from '@/views/Cart'
+import NotFound from '@/views/NotFound'
 import Home from '@/views/Home'
-import Item from '@/views/Item'
+import Product from '@/views/Product'
 import Login from '@/views/Login'
 import SignUp from '@/views/SignUp'
 
@@ -30,9 +31,14 @@ const routes = [
     component: Cart
   },
   {
-    path: '/item/:title/:id',
-    name: 'item',
-    component: Item
+    path: '/product/:title/:id',
+    name: 'product',
+    component: Product
+  },
+  {
+    path: '*',
+    name: 'not-found',
+    component: NotFound
   }
 ]
 

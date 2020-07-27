@@ -39,7 +39,7 @@
             {{ numRatings }} customer reviews
           </div>
           <router-link
-            :to="{ name: 'item', params: { id, title } }"
+            :to="{ name: 'product', params: { id, title } }"
           >
             <rating-percent num-stars="5" percent="30"/>
           </router-link>
@@ -48,7 +48,7 @@
           <rating-percent num-stars="2" percent="20"/>
           <rating-percent num-stars="1" percent="30"/>
           <v-divider class="my-4"/>
-          <router-link :to="{ name: 'item', params: { id, title } }">
+          <router-link :to="{ name: 'product', params: { id, title } }">
             <div class="text-center"> See All Reviews </div>
           </router-link>
         </v-container>
@@ -56,7 +56,7 @@
     </v-menu>
     <v-icon> mdi-chevron-down </v-icon>
       <router-link
-        :to="{ name: 'item', params: { title, id } }"
+        :to="{ name: 'product', params: { title, id } }"
         color="accent"
       >
         {{ numRatings }}
