@@ -3,14 +3,20 @@ import axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    products: []
+    products: [],
+    productsPerPage: 20,
+    totalProducts: 0
   },
   getters: {
-    products (state) { return state.products }
+    products (state) { return state.products },
+    totalProducts (state) { return state.totalProducts }
   },
   mutations: {
     setProducts (state, products) {
       state.products = products
+    },
+    setTotalProducts (state, totalProducts) {
+      state.totalProducts = totalProducts
     }
   },
   actions: {
@@ -19,10 +25,11 @@ export default {
      * @param {Object} context
      * @param {Object} params
      */
-    async getProducts ({ commit }, params) {
+    async getProducts ({ commit, state }, params) {
       try {
-        const res = await axios.get('/api/item_variants/', params)
+        const res = await axios.get('/api/item_variants/', { params })
         commit('setProducts', res.data.results)
+        commit('setTotalProducts', Math.floor(res.data.count / state.productsPerPage))
       } catch (err) {
         commit('setSnackbar', { message: 'Failed to get products', color: 'error' }, { root: true })
       }

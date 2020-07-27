@@ -11,11 +11,15 @@ export default new Vuex.Store({
     snackbar: {
       text: null,
       color: 'warning'
-    }
+    },
+    loading: false
   },
   mutations: {
     setSnackbar (state, snackbar) {
       state.snackbar = snackbar
+    },
+    setLoading (state, loading) {
+      state.loading = loading
     }
   },
   actions: {
