@@ -8,7 +8,7 @@
       :to="link"
     >
       <v-img
-        :src="product.hero_image || require('@/assets/NoImageFound.png')"
+        :src="heroImage || require('@/assets/NoImageFound.png')"
         width="500"
         height="300"
       />
@@ -19,16 +19,28 @@
       </router-link>
     </v-card-title>
     <card-rating
-      class="ml-3 my-2"
-      :num-ratings="product.num_ratings"
-      :rating="product.rating"
       :id="product.id"
       :title="product.title"
-    />
-    <v-card-title class="pt-0 mt-0 title">
-      <router-link
-        :to="link"
+      :breakdown="breakdown"
+    >
+      <div
+        @mouseover="getBreakdown"
+        style="transform-origin: left; transform: scale(0.85)"
+        class="d-flex ml-3 my-2"
       >
+        <rating-icons :rating="product.rating" />
+        <v-icon> mdi-chevron-down </v-icon>
+        <router-link
+          :to="{ name: 'product', params: { title: product.title, id: product.id } }"
+          class="special-atag"
+          color="accent"
+        >
+          {{ product.num_ratings }}
+        </router-link>
+      </div>
+    </card-rating>
+    <v-card-title class="pt-0 mt-0 title">
+      <router-link :to="link">
         <card-price
           :price="product.price"
           :quantity="product.quantity"
@@ -42,6 +54,7 @@
 <script>
 import CardPrice from '@/components/CardPrice'
 import CardRating from '@/components/CardRating'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'productCard',
@@ -54,8 +67,13 @@ export default {
   },
   data: function () {
     const link = { name: 'product', params: { title: this.product.title, id: this.product.id } }
+    let heroImage = null
+    const images = this.product.images
+    if (images && images.length > 0) heroImage = images[0]
     return {
-      link
+      link,
+      heroImage,
+      breakdown: null
     }
   },
   filters: {
@@ -64,6 +82,17 @@ export default {
       let limitedTitle = title.substring(0, 50)
       if (limitedTitle.length < title.length) limitedTitle += '...'
       return limitedTitle
+    }
+  },
+  methods: {
+    ...mapActions({
+      getRatingBreakdown: 'product/getRatingBreakdown'
+    }),
+    getBreakdown () {
+      if (this.breakdown !== null) return
+      this.getRatingBreakdown(this.product.id).then((res) => {
+        this.breakdown = res
+      })
     }
   }
 }
@@ -81,5 +110,11 @@ a:hover {
   font-size: 1.05rem;
   line-height: 1.35;
   word-break: keep-all;
+}
+.special-atag {
+  text-decoration: none;
+}
+.special-atag:hover {
+  text-decoration: underline;
 }
 </style>

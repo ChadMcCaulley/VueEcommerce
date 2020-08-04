@@ -2,7 +2,7 @@
   <div class="d-flex align-center my-2">
     {{ numStars }} star
     <v-progress-linear
-      :value="percent"
+      :value="percent * 100"
       background-color="#ccc"
       background-opacity="0.5"
       height="18"

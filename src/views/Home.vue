@@ -1,6 +1,20 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row v-if="loading">
+      <v-col
+        v-for="n in productsPerPage"
+        :key="n"
+        sm="6"
+        md="4"
+        lg="3"
+        xl="3"
+      >
+        <v-skeleton-loader
+          type="card"
+        />
+      </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col
         v-for="product in products"
         :key="product.id"
@@ -13,6 +27,7 @@
       </v-col>
     </v-row>
     <v-pagination
+      v-if="!loading"
       v-model="page"
       @input="getProductByPage"
       :length="totalProducts"
@@ -27,11 +42,13 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Home',
   data: () => ({
-    page: 1
+    page: 1,
+    loading: true
   }),
   computed: {
     ...mapGetters('product', [
       'products',
+      'productsPerPage',
       'totalProducts'
     ]),
     totalVisable () {
@@ -54,7 +71,9 @@ export default {
     }
   },
   mounted () {
-    this.getProducts()
+    this.getProducts().then(() => {
+      this.loading = false
+    })
   }
 }
 </script>
