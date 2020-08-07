@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex">
-    {{ price | price }}
+    <price :price="price"/>
     <div
       v-if="quantity > 1 || listPrice"
       style="font-size: .9rem; color: #444;"

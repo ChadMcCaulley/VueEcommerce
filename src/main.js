@@ -6,10 +6,11 @@ import vuetify from './plugins/vuetify'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
-import Autocomplete from '@/components/Autocomplete'
 import ProductCard from '@/components/ProductCard'
 import RatingIcons from '@/components/RatingIcons'
-import PasswordInput from '@/components/PasswordInput'
+import Price from '@/components/Price'
+import Autocomplete from '@/components/Input/Autocomplete'
+import PasswordInput from '@/components/Input/PasswordInput'
 import filters from '@/filters'
 import mixins from '@/mixins'
 import '@/registerServiceWorker'
@@ -23,6 +24,7 @@ Vue.component('Autocomplete', Autocomplete)
 Vue.component('ProductCard', ProductCard)
 Vue.component('RatingIcons', RatingIcons)
 Vue.component('PasswordInput', PasswordInput)
+Vue.component('Price', Price)
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
 

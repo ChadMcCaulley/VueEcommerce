@@ -1,6 +1,5 @@
 <template>
   <v-card
-    class="mx-auto"
     width="500"
     height="475"
   >
@@ -10,8 +9,8 @@
       <v-img
         :src="heroImage || require('@/assets/NoImageFound.png')"
         contain
-        max-width="500"
-        height="300"
+        width="500"
+        height="250"
       />
     </router-link>
     <v-card-title class="mb-0 pb-0 title">

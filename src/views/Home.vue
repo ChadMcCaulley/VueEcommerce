@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-row v-if="loading">
       <v-col
         v-for="n in productsPerPage"
@@ -33,7 +33,7 @@
       :length="totalProducts"
       :total-visible="totalVisable"
     />
-  </v-container>
+  </div>
 </template>
 
 <script>
