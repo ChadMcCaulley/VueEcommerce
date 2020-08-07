@@ -5,12 +5,14 @@ export default {
   state: {
     products: [],
     productsPerPage: 20,
-    totalProducts: 0
+    totalProducts: 0,
+    product: null
   },
   getters: {
     products (state) { return state.products },
     productsPerPage (state) { return state.productsPerPage },
-    totalProducts (state) { return state.totalProducts }
+    totalProducts (state) { return state.totalProducts },
+    product (state) { return state.product }
   },
   mutations: {
     setProducts (state, products) {
@@ -18,6 +20,9 @@ export default {
     },
     setTotalProducts (state, totalProducts) {
       state.totalProducts = totalProducts
+    },
+    setProduct (state, product) {
+      state.product = product
     }
   },
   actions: {
@@ -36,9 +41,22 @@ export default {
       }
     },
     /**
+     * Get the next page of products with optional params
+     * @param {Object} context
+     * @param {String} id
+     */
+    async getProduct ({ commit }, id) {
+      try {
+        const res = await axios.get(`/api/item_variants/${id}/`)
+        commit('setProduct', res.data)
+      } catch (err) {
+        commit('setSnackbar', { message: 'Failed to get the product', color: 'error' }, { root: true })
+      }
+    },
+    /**
      * Get the breakdown for the current product's reviews
      * @param {Object} context
-     * @param {Object} params
+     * @param {String} id
      */
     async getRatingBreakdown ({ commit }, id) {
       try {

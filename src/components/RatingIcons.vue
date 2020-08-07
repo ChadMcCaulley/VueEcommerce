@@ -7,7 +7,6 @@
     >
       {{ icon }}
     </v-icon>
-    <slot />
   </div>
 </template>
 

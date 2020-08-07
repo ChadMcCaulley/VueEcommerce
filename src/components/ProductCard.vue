@@ -9,7 +9,8 @@
     >
       <v-img
         :src="heroImage || require('@/assets/NoImageFound.png')"
-        width="500"
+        contain
+        max-width="500"
         height="300"
       />
     </router-link>
@@ -69,7 +70,7 @@ export default {
     const link = { name: 'product', params: { title: this.product.title, id: this.product.id } }
     let heroImage = null
     const images = this.product.images
-    if (images && images.length > 0) heroImage = images[0]
+    if (images && images.length > 0) heroImage = images[0].image
     return {
       link,
       heroImage,
