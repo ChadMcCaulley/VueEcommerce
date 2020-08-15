@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="my-3">
-          {{ breakdown.num_ratings }} customer reviews
+          {{ breakdown.num_reviews }} customer reviews
         </div>
         <router-link
           v-for="breakdown in ratingsBreakdown"

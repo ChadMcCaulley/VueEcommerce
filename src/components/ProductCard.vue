@@ -8,7 +8,7 @@
     >
       <v-img
         :src="heroImage || require('@/assets/NoImageFound.png')"
-        contain
+        :contain="heroImage"
         width="500"
         height="250"
       />
@@ -35,7 +35,7 @@
           class="special-atag"
           color="accent"
         >
-          {{ product.num_ratings }}
+          {{ product.num_reviews }}
         </router-link>
       </div>
     </card-rating>

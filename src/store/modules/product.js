@@ -33,7 +33,7 @@ export default {
      */
     async getProducts ({ commit, state }, params) {
       try {
-        const res = await axios.get('/api/item_variants/', { params })
+        const res = await axios.get('/api/products/', { params })
         commit('setProducts', res.data.results)
         commit('setTotalProducts', Math.floor(res.data.count / state.productsPerPage))
       } catch (err) {
@@ -47,7 +47,7 @@ export default {
      */
     async getProduct ({ commit }, id) {
       try {
-        const res = await axios.get(`/api/item_variants/${id}/`)
+        const res = await axios.get(`/api/products/${id}/`)
         commit('setProduct', res.data)
       } catch (err) {
         commit('setSnackbar', { message: 'Failed to get the product', color: 'error' }, { root: true })
@@ -60,7 +60,7 @@ export default {
      */
     async getRatingBreakdown ({ commit }, id) {
       try {
-        const res = await axios.get(`/api/item_variants/${id}/rating_breakdown/`)
+        const res = await axios.get(`/api/products/${id}/rating_breakdown/`)
         return res.data
       } catch (err) {
         commit('setSnackbar', { message: 'Failed to get reviews', color: 'error' }, { root: true })

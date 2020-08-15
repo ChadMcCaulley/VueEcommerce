@@ -7,7 +7,7 @@
         sm="6"
         md="4"
         lg="3"
-        xl="3"
+        xl="2"
       >
         <v-skeleton-loader
           type="card"
@@ -21,7 +21,7 @@
         sm="6"
         md="4"
         lg="3"
-        xl="3"
+        xl="2"
       >
         <product-card :product="product" />
       </v-col>
