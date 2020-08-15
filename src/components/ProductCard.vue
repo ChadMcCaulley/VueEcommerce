@@ -8,7 +8,6 @@
     >
       <v-img
         :src="heroImage || require('@/assets/NoImageFound.png')"
-        :contain="heroImage"
         width="500"
         height="250"
       />
@@ -17,29 +16,10 @@
       <router-link :to="link">
         {{ product.title | titleLength }}
       </router-link>
-    </v-card-title>
-    <card-rating
-      :id="product.id"
-      :title="product.title"
-      :breakdown="breakdown"
-    >
-      <div
-        @mouseover="getBreakdown"
-        style="transform-origin: left; transform: scale(0.85)"
-        class="d-flex ml-3 my-2"
-      >
-        <rating-icons :rating="product.rating" />
-        <v-icon> mdi-chevron-down </v-icon>
-        <router-link
-          :to="{ name: 'product', params: { title: product.title, id: product.id } }"
-          class="special-atag"
-          color="accent"
-        >
-          {{ product.num_reviews }}
-        </router-link>
-      </div>
-    </card-rating>
-    <v-card-title class="pt-0 mt-0 title">
+      <rating-icons-with-breakdown
+        :product="product"
+        class="ml-3"
+      />
       <router-link :to="link">
         <card-price
           :price="product.price"
@@ -53,14 +33,13 @@
 
 <script>
 import CardPrice from '@/components/CardPrice'
-import CardRating from '@/components/CardRating'
-import { mapActions } from 'vuex'
+import RatingIconsWithBreakdown from '@/components/RatingIconsWithBreakdown'
 
 export default {
   name: 'productCard',
   components: {
     CardPrice,
-    CardRating
+    RatingIconsWithBreakdown
   },
   props: {
     product: { type: Object, required: true }
@@ -83,17 +62,6 @@ export default {
       if (limitedTitle.length < title.length) limitedTitle += '...'
       return limitedTitle
     }
-  },
-  methods: {
-    ...mapActions({
-      getRatingBreakdown: 'product/getRatingBreakdown'
-    }),
-    getBreakdown () {
-      if (this.breakdown !== null) return
-      this.getRatingBreakdown(this.product.id).then((res) => {
-        this.breakdown = res
-      })
-    }
   }
 }
 </script>
@@ -110,11 +78,5 @@ a:hover {
   font-size: 1.05rem;
   line-height: 1.35;
   word-break: keep-all;
-}
-.special-atag {
-  text-decoration: none;
-}
-.special-atag:hover {
-  text-decoration: underline;
 }
 </style>

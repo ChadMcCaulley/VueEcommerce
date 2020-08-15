@@ -16,9 +16,8 @@
     <v-col>
       <v-img
         :src="heroImage"
-        contain
-        width="300"
-        height="300"
+        width="400"
+        height="400"
       />
     </v-col>
   </v-row>
@@ -34,6 +33,11 @@ export default {
     const heroImage = this.images[0].image
     return {
       heroImage
+    }
+  },
+  watch: {
+    images () {
+      this.heroImage = this.images[0].image
     }
   },
   methods: {
