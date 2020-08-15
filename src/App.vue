@@ -11,9 +11,7 @@
       @logOut="logOut"
     />
     <v-main>
-      <v-container>
-        <router-view />
-      </v-container>
+      <router-view id="app-view" />
       <snackbar />
     </v-main>
     <app-footer />
@@ -52,3 +50,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+#app-view {
+  margin: 0 0.5rem;
+}
+</style>

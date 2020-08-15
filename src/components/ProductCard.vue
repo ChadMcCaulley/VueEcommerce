@@ -1,7 +1,7 @@
 <template>
   <v-card
     width="500"
-    height="475"
+    height="100%"
   >
     <router-link
       :to="link"
@@ -12,13 +12,12 @@
         height="250"
       />
     </router-link>
-    <v-card-title class="mb-0 pb-0 title">
+    <v-card-title class="title">
       <router-link :to="link">
-        {{ product.title | titleLength }}
+        {{ product.title }}
       </router-link>
       <rating-icons-with-breakdown
         :product="product"
-        class="ml-3"
       />
       <router-link :to="link">
         <card-price
@@ -53,14 +52,6 @@ export default {
       link,
       heroImage,
       breakdown: null
-    }
-  },
-  filters: {
-    titleLength (title) {
-      if (!title) return 'N/A'
-      let limitedTitle = title.substring(0, 50)
-      if (limitedTitle.length < title.length) limitedTitle += '...'
-      return limitedTitle
     }
   }
 }

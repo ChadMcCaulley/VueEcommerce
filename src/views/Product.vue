@@ -11,6 +11,11 @@
         <p> {{ product.description }} </p>
       </v-col>
       <v-col cols="2">
+        <v-card width="100%">
+          <v-container class="card-container">
+            <p> {{ product.price | price }} </p>
+          </v-container>
+        </v-card>
       </v-col>
     </v-row>
   </div>

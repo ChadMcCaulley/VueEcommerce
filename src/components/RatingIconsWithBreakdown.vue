@@ -3,9 +3,9 @@
     :id="product.id"
     :title="product.title"
     :breakdown="breakdown"
+    @mouseover="getBreakdown"
   >
     <div
-      @mouseover="getBreakdown"
       style="transform-origin: left; transform: scale(0.85)"
       class="d-flex my-2"
     >
@@ -61,8 +61,11 @@ a:hover {
 }
 .special-atag {
   text-decoration: none;
+  font-size: 1.1rem;
+  color: var(--v-primary-base) !important;
 }
 .special-atag:hover {
   text-decoration: underline;
+  color: var(--v-secondary-base) !important;
 }
 </style>

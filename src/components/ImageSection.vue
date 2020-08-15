@@ -1,6 +1,9 @@
 <template>
   <v-row>
-    <v-col cols="auto">
+    <v-col
+      cols="auto"
+      class="pr-0"
+    >
       <v-img
         v-for="image in images"
         :key="image.id"
@@ -16,28 +19,36 @@
     <v-col>
       <v-img
         :src="heroImage"
-        width="400"
-        height="400"
+        :width="heroImageWidth"
+        :height="heroImageWidth"
       />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import WindowResize from '@/mixins/windowResize'
+
 export default {
   name: 'ImageSection',
+  mixins: [WindowResize],
   props: {
     images: { type: Array, required: true }
   },
   data: function () {
     const heroImage = this.images[0].image
     return {
-      heroImage
+      heroImage,
+      heroImageWidth: 400
     }
   },
   watch: {
     images () {
       this.heroImage = this.images[0].image
+    },
+    window () {
+      if (this.window.width > 1280) this.heroImageWidth = 400
+      else this.heroImageWidth = 350
     }
   },
   methods: {

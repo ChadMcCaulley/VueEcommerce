@@ -14,6 +14,7 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <span
+        @mouseover="$emit('mouseover')"
         v-bind="attrs"
         v-on="on"
       >
