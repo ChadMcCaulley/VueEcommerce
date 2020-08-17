@@ -15,17 +15,34 @@
         v-slot="{ invalid }"
       >
         <v-form @submit.prevent="signUp">
-          <ValidationProvider
-            rules="required"
-            v-slot="{ errors }"
-          >
-            <v-text-field
-              v-model="username"
-              label="Username"
-              prepend-inner-icon="mdi-account"
-              :error-messages="errors"
-            />
-          </ValidationProvider>
+          <v-row>
+            <v-col>
+              <ValidationProvider
+                rules="required"
+                v-slot="{ errors }"
+              >
+                <v-text-field
+                  v-model="firstName"
+                  label="First Name"
+                  prepend-inner-icon="mdi-account"
+                  :error-messages="errors"
+                />
+              </ValidationProvider>
+            </v-col>
+            <v-col>
+              <ValidationProvider
+                rules="required"
+                v-slot="{ errors }"
+              >
+                <v-text-field
+                  v-model="lastName"
+                  label="Last Name"
+                  prepend-inner-icon="mdi-account"
+                  :error-messages="errors"
+                />
+              </ValidationProvider>
+            </v-col>
+          </v-row>
           <ValidationProvider
             rules="required|email"
             v-slot="{ errors }"
@@ -81,7 +98,8 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'SignUp',
   data: () => ({
-    username: null,
+    firstName: null,
+    lastName: null,
     email: null,
     password: null,
     confirmPassword: null,
@@ -100,9 +118,10 @@ export default {
     async signUp () {
       this.loading = true
       const params = {
-        username: this.username,
+        first_name: this.firstName,
+        last_name: this.lastName,
         email: this.email,
-        password1: this.password,
+        password: this.password,
         password2: this.confirmPassword
       }
       await this.$store.dispatch('auth/registration', params)

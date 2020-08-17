@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex align-center my-2">
+  <div class="d-flex align-center my-2 rating-percent">
     {{ numStars }} star
     <v-progress-linear
-      :value="percent"
-      background-color="#ccc"
+      :value="percent * 100"
+      background-color="#ddd"
       background-opacity="0.5"
       height="18"
       color="rating"
@@ -18,13 +18,19 @@ export default {
   name: 'RatingPercent',
   props: {
     numStars: { type: String, required: true },
-    percent: { type: Number, required: true }
+    percent: { type: [Number, String], required: true }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 .progress-bar {
   max-width: 180px;
+  border: #aaa solid 1px;
+  border-radius: 3px;
+  box-shadow: 2px 3px 6px 0px rgba(0,0,0,0.25);
+  &:hover {
+    box-shadow: 4px 5px 6px 0px rgba(0,0,0,0.25);
+  }
 }
 </style>

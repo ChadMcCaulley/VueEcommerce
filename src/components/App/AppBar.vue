@@ -22,7 +22,7 @@
       shaped
     />
     <v-spacer />
-    <div v-if="desktop && !loggedIn">
+    <div v-if="$vuetify.breakpoint.width > 680 && !loggedIn">
       <v-btn
         name="Sign Up Button"
         color="secondary"
@@ -40,7 +40,7 @@
       </v-btn>
     </div>
     <v-btn
-      v-else-if="desktop"
+      v-else-if="desktop && loggedIn"
       text
       color="warning"
       @click="$emit('logOut')"

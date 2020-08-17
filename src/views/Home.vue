@@ -1,53 +1,79 @@
 <template>
-  <v-container>
-    <v-row>
+  <div>
+    <v-row v-if="loading">
       <v-col
-        v-for="item in items"
-        :key="item.id"
+        v-for="n in productsPerPage"
+        :key="n"
         sm="6"
         md="4"
         lg="3"
-        xl="3"
+        xl="2"
       >
-        <item-card :item="item" />
+        <v-skeleton-loader
+          type="card"
+        />
       </v-col>
     </v-row>
-  </v-container>
+    <v-row v-else>
+      <v-col
+        v-for="product in products"
+        :key="product.id"
+        sm="6"
+        md="4"
+        lg="3"
+        xl="2"
+      >
+        <product-card :product="product" />
+      </v-col>
+    </v-row>
+    <v-pagination
+      v-if="!loading"
+      v-model="page"
+      @input="getProductByPage"
+      :length="totalProducts"
+      :total-visible="totalVisable"
+    />
+  </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'Home',
-  data: function () {
-    const itemValues = [
-      {
-        name: "Nike Air Force 1 Mid '07'",
-        src: 'https://images.unsplash.com/photo-1512374382149-233c42b6a83b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80'
-      },
-      {
-        name: 'Ceramic Coffee Cup',
-        src: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
-      },
-      {
-        name: 'USB 3.0 A to A Male Cable 3Ft,USB to USB Cable USB Male to Male Cable Double End USB Cord with Gold-Plated Connector for Hard Drive Enclosures, DVD Player, Laptop Cooler (3Ft/1M)',
-        src: 'https://images.unsplash.com/photo-1492107376256-4026437926cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
-      },
-      {
-        name: 'Headphones',
-        src: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
+  data: () => ({
+    page: 1,
+    loading: true
+  }),
+  computed: {
+    ...mapGetters('product', [
+      'products',
+      'productsPerPage',
+      'totalProducts'
+    ]),
+    totalVisable () {
+      if (this.$vuetify.breakpoint.xs) return 5
+      if (this.$vuetify.breakpoint.sm) return 10
+      if (this.$vuetify.breakpoint.md) return 15
+      return 20
+    }
+  },
+  methods: {
+    ...mapActions({ getProducts: 'product/getProducts' }),
+    /**
+     * Get the next set of products based on their page
+     */
+    getProductByPage () {
+      const params = {
+        page: this.page
       }
-    ]
-    const items = []
-    for (let i = 0; i < 20; i++) {
-      const item = itemValues[Math.floor(Math.random() * 4)]
-      const price = Math.random() * 10
-      const rating = parseFloat((Math.random() * 5).toFixed(1))
-      const numRatings = Math.ceil(Math.random() * 100)
-      items.push({ id: i, title: item.name, price, rating, num_ratings: numRatings, hero_image: item.src, list_price: price + 1, per_item_price: price / 3 })
+      this.getProducts(params).then(() => {})
     }
-    return {
-      items
-    }
+  },
+  mounted () {
+    this.getProducts().then(() => {
+      this.loading = false
+    })
   }
 }
 </script>

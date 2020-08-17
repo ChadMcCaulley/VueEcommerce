@@ -1,10 +1,9 @@
 export default {
   price: (value) => {
     if (!value) return 'N/A'
-    return '$' + value.toFixed(2)
+    return '$' + value
   },
   percent: (value) => {
-    if (!value) return 'N/A'
-    return value + '%'
+    return Math.floor((parseFloat(value) * 100)) + '%'
   }
 }

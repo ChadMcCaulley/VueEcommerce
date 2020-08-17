@@ -7,7 +7,6 @@
     >
       {{ icon }}
     </v-icon>
-    <slot />
   </div>
 </template>
 
@@ -15,11 +14,12 @@
 export default {
   name: 'RatingIcons',
   props: {
-    rating: { type: Number, required: true }
+    rating: { type: [String, Number], required: true }
   },
   data: function () {
-    let fullStars = Math.floor(this.rating)
-    let halfStars = Math.ceil(this.rating - fullStars)
+    const rating = parseFloat(this.rating)
+    let fullStars = Math.floor(rating)
+    let halfStars = Math.ceil(rating - fullStars)
     const starIcons = new Array(5).fill(0).map(() => {
       if (fullStars > 0) {
         fullStars--

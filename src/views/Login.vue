@@ -19,16 +19,16 @@
             v-if="failed && !loading"
             style="color: var(--v-error-base); font-size: .9rem;"
           >
-            The username and password you entered did not match our records. Please double-check and try again.
+            The email and password you entered did not match our records. Please double-check and try again.
           </p>
           <ValidationProvider
             rules="required"
             v-slot="{ errors }"
           >
             <v-text-field
-              v-model="username"
-              label="Username"
-              prepend-inner-icon="mdi-account"
+              v-model="email"
+              label="Email"
+              prepend-inner-icon="mdi-email"
               :error-messages="errors"
             />
           </ValidationProvider>
@@ -64,7 +64,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Login',
   data: () => ({
-    username: null,
+    email: null,
     password: null,
     failed: false,
     loading: false
@@ -81,7 +81,7 @@ export default {
     async logIn () {
       this.loading = true
       const params = {
-        username: this.username,
+        email: this.email,
         password: this.password
       }
       await this.$store.dispatch('auth/login', params)

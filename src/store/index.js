@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import authentication from '@/store/modules/authentication'
+import product from '@/store/modules/product'
 
 Vue.use(Vuex)
 
@@ -10,16 +11,21 @@ export default new Vuex.Store({
     snackbar: {
       text: null,
       color: 'warning'
-    }
+    },
+    loading: false
   },
   mutations: {
     setSnackbar (state, snackbar) {
       state.snackbar = snackbar
+    },
+    setLoading (state, loading) {
+      state.loading = loading
     }
   },
   actions: {
   },
   modules: {
-    auth: authentication
+    auth: authentication,
+    product
   }
 })

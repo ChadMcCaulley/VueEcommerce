@@ -11,7 +11,7 @@
       @logOut="logOut"
     />
     <v-main>
-      <router-view />
+      <router-view id="app-view" />
       <snackbar />
     </v-main>
     <app-footer />
@@ -20,10 +20,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import AppBar from '@/components/AppBar'
-import AppFooter from '@/components/AppFooter'
-import NavDrawer from '@/components/NavDrawer'
-import Snackbar from '@/components/Snackbar'
+import AppBar from '@/components/App/AppBar'
+import AppFooter from '@/components/App/AppFooter'
+import NavDrawer from '@/components/App/NavDrawer'
+import Snackbar from '@/components/App/Snackbar'
 
 export default {
   name: 'App',
@@ -51,8 +51,8 @@ export default {
 }
 </script>
 
-<style>
-  #app {
-    background: linear-gradient(130deg, var(--v-primary-lighten5), var(--v-secondary-lighten5));
-  }
+<style lang="scss">
+#app-view {
+  margin: 0 0.5rem;
+}
 </style>
