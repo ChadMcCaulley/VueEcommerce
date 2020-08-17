@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .cents {
   vertical-align: super;
   font-size: 0.9rem;

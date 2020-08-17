@@ -27,7 +27,7 @@
       </v-col>
     </v-row>
     <v-pagination
-      v-if="!loading"
+      v-if="!loading && page > 1"
       v-model="page"
       @input="getProductByPage"
       :length="totalProducts"

@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex align-center my-2 rating-percent">
-    {{ numStars }} star
+  <div class="d-flex align-center my-2 progress-bar-container">
+    {{ numStars }} Star
     <v-progress-linear
       :value="percent * 100"
       background-color="#ddd"
@@ -23,14 +23,17 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+div.progress-bar-container:hover {
+  .progress-bar {
+    box-shadow: 4px 5px 6px 0px rgba(0,0,0,0.25);
+  }
+  text-decoration: underline;
+}
 .progress-bar {
   max-width: 180px;
   border: #aaa solid 1px;
   border-radius: 3px;
   box-shadow: 2px 3px 6px 0px rgba(0,0,0,0.25);
-  &:hover {
-    box-shadow: 4px 5px 6px 0px rgba(0,0,0,0.25);
-  }
 }
 </style>

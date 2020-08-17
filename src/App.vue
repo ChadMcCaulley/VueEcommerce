@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app-view {
   margin: 0 0.5rem;
 }

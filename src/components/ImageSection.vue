@@ -8,17 +8,16 @@
         v-for="image in images"
         :key="image.id"
         :src="image.image"
-        contain
         width="60"
         height="60"
-        class="mb-2 image-preview"
-        @mouseover="changeHeroImage(image.image)"
+        :class="image === heroImage ? 'active-image mb-2 image-preview' : 'mb-2 image-preview'"
+        @mouseover="changeHeroImage(image)"
         :input-value="true"
       />
     </v-col>
     <v-col>
       <v-img
-        :src="heroImage"
+        :src="heroImage.image"
         :width="heroImageWidth"
         :height="heroImageWidth"
       />
@@ -36,7 +35,7 @@ export default {
     images: { type: Array, required: true }
   },
   data: function () {
-    const heroImage = this.images[0].image
+    const heroImage = this.images[0]
     return {
       heroImage,
       heroImageWidth: 400
@@ -44,7 +43,7 @@ export default {
   },
   watch: {
     images () {
-      this.heroImage = this.images[0].image
+      this.heroImage = this.images[0]
     },
     window () {
       if (this.window.width > 1280) this.heroImageWidth = 400
@@ -54,10 +53,10 @@ export default {
   methods: {
     /**
      * Change the hero image
-     * @param {String} imageSrc
+     * @param {Object} image
      */
-    changeHeroImage (imageSrc) {
-      this.heroImage = imageSrc
+    changeHeroImage (image) {
+      this.heroImage = image
     }
   }
 }
@@ -71,5 +70,8 @@ export default {
     cursor: pointer;
     box-shadow: 0px 0px 4px 2px var(--v-primary-base);
   }
+}
+.active-image {
+  box-shadow: 0px 0px 4px 2px var(--v-primary-base);
 }
 </style>
