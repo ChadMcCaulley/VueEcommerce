@@ -1,5 +1,6 @@
 <template>
   <card-rating
+    v-if="product.num_reviews > 0"
     :id="product.id"
     :title="product.title"
     :breakdown="breakdown"

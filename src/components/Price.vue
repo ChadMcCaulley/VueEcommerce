@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex">
-    {{ wholeValue | price }}
+    {{ '$' + wholeValue }}
     <span class="cents"> {{ decimalValue }} </span>
   </div>
 </template>
