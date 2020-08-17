@@ -12,7 +12,7 @@
         height="250"
       />
     </router-link>
-    <v-card-title class="title">
+    <v-container class="title">
       <router-link :to="link">
         {{ product.title }}
       </router-link>
@@ -26,7 +26,7 @@
           :list-price="product.list_price"
         />
       </router-link>
-    </v-card-title>
+    </v-container>
   </v-card>
 </template>
 
