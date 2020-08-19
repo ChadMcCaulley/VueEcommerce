@@ -30,7 +30,7 @@
 
 <script>
 import CardPrice from '@/components/CardPrice'
-import RatingIconsWithBreakdown from '@/components/RatingIconsWithBreakdown'
+import RatingIconsWithBreakdown from '@/components/Rating/RatingIconsWithBreakdown'
 
 export default {
   name: 'productCard',

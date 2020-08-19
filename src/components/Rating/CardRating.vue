@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import ProductRating from '@/components/ProductRating'
+import ProductRating from '@/components/Rating/ProductRating'
 
 export default {
   name: 'CardRating',

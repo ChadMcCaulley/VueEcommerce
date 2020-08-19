@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import CardRating from '@/components/CardRating'
+import CardRating from '@/components/Rating/CardRating'
 import { mapActions } from 'vuex'
 
 export default {

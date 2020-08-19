@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-width: 120px">
     <v-icon
       v-for="(icon, i) in starIcons"
       :key="i"

@@ -4,6 +4,7 @@ import Cart from '@/views/Cart'
 import NotFound from '@/views/NotFound'
 import Home from '@/views/Home'
 import Product from '@/views/Product'
+import ProductReview from '@/views/ProductReview'
 import Login from '@/views/Login'
 import SignUp from '@/views/SignUp'
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/product/:title/:id',
     name: 'product',
     component: Product
+  },
+  {
+    path: '/product/:title/:id/review-form',
+    name: 'review-form',
+    component: ProductReview
   },
   {
     path: '*',

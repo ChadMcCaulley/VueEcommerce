@@ -1,5 +1,5 @@
 <template>
-  <v-card width="100%" min-width="250px">
+  <v-card min-width="150px" max-width="250px">
     <v-container class="card-container">
       <h3 class="primary--text"> {{ product.price | price }} </h3>
       <h3 :class="`${stockStatus.color}--text my-4`"> {{ stockStatus.text }} </h3>

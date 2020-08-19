@@ -35,7 +35,7 @@ export default {
       try {
         const res = await axios.get('/api/products/', { params })
         commit('setProducts', res.data.results)
-        commit('setTotalProducts', Math.floor(res.data.count / state.productsPerPage))
+        commit('setTotalProducts', res.data.count)
       } catch (err) {
         commit('setSnackbar', { message: 'Failed to get products', color: 'error' }, { root: true })
       }

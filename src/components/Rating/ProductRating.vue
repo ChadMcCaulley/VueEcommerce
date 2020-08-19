@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import RatingPercent from '@/components/RatingPercent'
+import RatingPercent from '@/components/Rating/RatingPercent'
 
 export default {
   name: 'CardRating',

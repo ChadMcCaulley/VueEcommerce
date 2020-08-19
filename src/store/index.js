@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import authentication from '@/store/modules/authentication'
 import product from '@/store/modules/product'
+import review from '@/store/modules/review'
 
 Vue.use(Vuex)
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
   },
   modules: {
     auth: authentication,
-    product
+    product,
+    review
   }
 })

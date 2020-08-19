@@ -27,10 +27,10 @@
       </v-col>
     </v-row>
     <v-pagination
-      v-if="!loading && page > 1"
+      v-if="!loading && totalPages > 1"
       v-model="page"
       @input="getProductByPage"
-      :length="totalProducts"
+      :length="totalPages"
       :total-visible="totalVisable"
     />
   </div>
@@ -56,6 +56,9 @@ export default {
       if (this.$vuetify.breakpoint.sm) return 10
       if (this.$vuetify.breakpoint.md) return 15
       return 20
+    },
+    totalPages () {
+      return Math.ceil(this.totalProducts / this.productsPerPage)
     }
   },
   methods: {
