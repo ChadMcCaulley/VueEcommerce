@@ -38,7 +38,7 @@ export default {
     const heroImage = this.images[0]
     return {
       heroImage,
-      heroImageWidth: 400
+      heroImageWidth: 500
     }
   },
   watch: {
@@ -46,8 +46,8 @@ export default {
       this.heroImage = this.images[0]
     },
     window () {
-      if (this.window.width > 1280) this.heroImageWidth = 400
-      else this.heroImageWidth = 350
+      if (this.window.width > 1280) this.heroImageWidth = 500
+      else this.heroImageWidth = 300
     }
   },
   methods: {

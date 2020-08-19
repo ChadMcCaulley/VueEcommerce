@@ -10,12 +10,8 @@
         <rating-icons-with-breakdown :product="product" />
         <p> {{ product.description }} </p>
       </v-col>
-      <v-col cols="2">
-        <v-card width="100%">
-          <v-container class="card-container">
-            <p> {{ product.price | price }} </p>
-          </v-container>
-        </v-card>
+      <v-col cols="auto">
+        <product-purchase-card :product="product" />
       </v-col>
     </v-row>
   </div>
@@ -23,6 +19,7 @@
 
 <script>
 import ImageSection from '@/components/ImageSection'
+import ProductPurchaseCard from '@/components/ProductPurchaseCard'
 import RatingIconsWithBreakdown from '@/components/RatingIconsWithBreakdown'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -30,7 +27,8 @@ export default {
   name: 'Product',
   components: {
     ImageSection,
-    RatingIconsWithBreakdown
+    RatingIconsWithBreakdown,
+    ProductPurchaseCard
   },
   computed: {
     ...mapGetters('product', ['product'])

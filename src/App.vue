@@ -10,7 +10,7 @@
       :logged-in="loggedIn"
       @logOut="logOut"
     />
-    <v-main>
+    <v-main id="main">
       <router-view id="app-view" />
       <snackbar />
     </v-main>
@@ -53,6 +53,9 @@ export default {
 
 <style lang="scss" scoped>
 #app-view {
-  margin: 0 0.5rem;
+  margin: 0 1rem;
+}
+#main {
+  background-color: var(--v-background-base);
 }
 </style>
