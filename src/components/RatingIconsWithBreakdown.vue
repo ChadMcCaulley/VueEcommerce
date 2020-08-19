@@ -1,8 +1,7 @@
 <template>
   <card-rating
     v-if="product.num_reviews > 0"
-    :id="product.id"
-    :title="product.title"
+    :product="product"
     :breakdown="breakdown"
     @mouseover="getBreakdown"
   >

@@ -21,68 +21,36 @@
         <slot />
       </span>
     </template>
-    <v-card width="300px">
-      <v-container v-if="!breakdown">
-        <v-skeleton-loader type="article"/>
-      </v-container>
-      <v-container v-else>
-        <div class="d-flex align-center">
-          <rating-icons :rating="breakdown.rating" />
-          <div
-            class="ml-2 font-weight-bold"
-            style="font-size: 1.3rem"
-          >
-            {{ breakdown.rating }} out of 5
-          </div>
-        </div>
-        <div class="my-3">
-          {{ breakdown.num_reviews }} customer reviews
-        </div>
-        <router-link
-          v-for="breakdown in ratingsBreakdown"
-          :key="breakdown[0]"
-          :to="{ name: 'product', params: { id, title } }"
+    <v-card>
+      <v-container>
+        <product-rating
+          :product="product"
+          :breakdown="breakdown"
         >
-          <rating-percent
-            :num-stars="breakdown[0]"
-            :percent="breakdown[1]"
-          />
-        </router-link>
-        <v-divider class="my-4"/>
-        <router-link :to="{ name: 'product', params: { id, title } }">
-          <div class="text-center"> See All Reviews </div>
-        </router-link>
+          <v-divider class="my-4"/>
+          <router-link :to="{ name: 'product', params: { id: product.id, title: product.title } }">
+            <div class="text-center"> See All Reviews </div>
+          </router-link>
+        </product-rating>
       </v-container>
     </v-card>
   </v-menu>
 </template>
 
 <script>
-import RatingPercent from '@/components/RatingPercent'
+import ProductRating from '@/components/ProductRating'
 
 export default {
   name: 'CardRating',
   components: {
-    RatingPercent
+    ProductRating
   },
   props: {
     breakdown: { type: Object, required: false, default: null },
-    id: { type: [Number, String], required: true },
-    title: { type: String, required: true }
+    product: { type: Object, required: true }
   },
   data: () => ({
     ratingMenu: false
-  }),
-  computed: {
-    ratingsBreakdown () {
-      return Object.entries(this.breakdown.rating_breakdown)
-    }
-  }
+  })
 }
 </script>
-
-<style scoped>
-a {
-  text-decoration: none;
-}
-</style>
