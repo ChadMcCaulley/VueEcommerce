@@ -16,6 +16,7 @@
         text
         rounded
         class="my-2"
+        style="font-size: 0.8rem;"
       >
         {{ link.name }}
       </v-btn>

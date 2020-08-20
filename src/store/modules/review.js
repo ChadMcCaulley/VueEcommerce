@@ -5,13 +5,15 @@ export default {
   state: {
     reviews: [],
     reviewsPerPage: 20,
-    totalReviews: 0
+    totalReviews: 0,
+    numStars: null
   },
   getters: {
     reviews (state) { return state.reviews },
     reviewsPerPage (state) { return state.reviewsPerPage },
     totalreviews (state) { return state.totalreviews },
-    review (state) { return state.review }
+    review (state) { return state.review },
+    numStars (state) { return state.numStars }
   },
   mutations: {
     setReviews (state, reviews) {
@@ -22,6 +24,9 @@ export default {
     },
     setReview (state, review) {
       state.review = review
+    },
+    setNumStars (state, numStars) {
+      state.numStars = numStars
     }
   },
   actions: {

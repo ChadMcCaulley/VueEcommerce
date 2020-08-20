@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="$emit('click', numStars)"
+    @click="updateNumStars"
     class="d-flex align-center my-2 progress-bar-container"
   >
     {{ numStars }} Star
@@ -17,11 +17,21 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'RatingPercent',
   props: {
     numStars: { type: String, required: true },
     percent: { type: [Number, String], required: true }
+  },
+  methods: {
+    ...mapMutations({
+      setNumStars: 'review/setNumStars'
+    }),
+    updateNumStars () {
+      this.setNumStars(this.numStars)
+    }
   }
 }
 </script>
