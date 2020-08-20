@@ -1,0 +1,76 @@
+<template>
+  <v-container v-if="!actualBreakdown">
+    <v-skeleton-loader type="article"/>
+  </v-container>
+  <div
+    v-else
+    style="min-width: 280px"
+  >
+    <div class="d-flex align-center">
+      <rating-icons :rating="product.rating" />
+      <div
+        class="ml-2 font-weight-bold"
+        style="font-size: 1.3rem"
+      >
+        {{ product.rating }} out of 5
+      </div>
+    </div>
+    <div class="my-3">
+      {{ product.num_reviews }} customer reviews
+    </div>
+    <router-link
+      v-for="breakdown in ratingsBreakdown"
+      :key="breakdown[0]"
+      :to="{ name: 'product', params: { id: product.id, title: product.title } }"
+    >
+      <rating-percent
+        @click="redirectToReviews"
+        :num-stars="breakdown[0]"
+        :percent="breakdown[1]"
+      />
+    </router-link>
+    <slot />
+  </div>
+</template>
+
+<script>
+import RatingPercent from '@/components/Rating/RatingPercent'
+
+export default {
+  name: 'CardRating',
+  components: {
+    RatingPercent
+  },
+  props: {
+    breakdown: { type: Object, required: false, default: null },
+    product: { type: Object, required: true }
+  },
+  data: () => ({
+    ratingMenu: false
+  }),
+  computed: {
+    actualBreakdown () {
+      if (!this.breakdown && !('rating_breakdown' in this.product)) return null
+      if ('rating_breakdown' in this.product) return this.product.rating_breakdown
+      return this.breakdown.rating_breakdown
+    },
+    ratingsBreakdown () {
+      return Object.entries(this.actualBreakdown)
+    }
+  },
+  methods: {
+    /**
+     * Redirect the user to the review section with the appropriate params
+     */
+    redirectToReviews (numStars) {
+      this.routeToPage('product', { id: this.product.id, title: this.product.title, numStars })
+    }
+  }
+}
+</script>
+
+<style scoped>
+a {
+  text-decoration: none;
+}
+</style>

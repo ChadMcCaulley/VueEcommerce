@@ -16,9 +16,7 @@
       <router-link :to="link">
         {{ product.title }}
       </router-link>
-      <rating-icons-with-breakdown
-        :product="product"
-      />
+      <rating-icons-with-breakdown :product="product"/>
       <router-link :to="link">
         <card-price
           :price="product.price"
@@ -32,7 +30,7 @@
 
 <script>
 import CardPrice from '@/components/CardPrice'
-import RatingIconsWithBreakdown from '@/components/RatingIconsWithBreakdown'
+import RatingIconsWithBreakdown from '@/components/Rating/RatingIconsWithBreakdown'
 
 export default {
   name: 'productCard',

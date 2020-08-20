@@ -1,14 +1,13 @@
 <template>
   <card-rating
     v-if="product.num_reviews > 0"
-    :id="product.id"
-    :title="product.title"
+    :product="product"
     :breakdown="breakdown"
     @mouseover="getBreakdown"
   >
     <div
-      style="transform-origin: left; transform: scale(0.85)"
-      class="d-flex my-2"
+      style="transform-origin: left; transform: scale(0.85);"
+      class="d-flex mb-1"
     >
       <rating-icons :rating="product.rating" />
       <v-icon> mdi-chevron-down </v-icon>
@@ -24,7 +23,7 @@
 </template>
 
 <script>
-import CardRating from '@/components/CardRating'
+import CardRating from '@/components/Rating/CardRating'
 import { mapActions } from 'vuex'
 
 export default {

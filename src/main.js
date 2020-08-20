@@ -7,7 +7,8 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
 import ProductCard from '@/components/ProductCard'
-import RatingIcons from '@/components/RatingIcons'
+import RatingIcons from '@/components/Rating/RatingIcons'
+import PaginatedList from '@/components/PaginatedList'
 import Price from '@/components/Price'
 import Autocomplete from '@/components/Input/Autocomplete'
 import PasswordInput from '@/components/Input/PasswordInput'
@@ -23,6 +24,7 @@ Vue.config.productionTip = false
 Vue.component('Autocomplete', Autocomplete)
 Vue.component('ProductCard', ProductCard)
 Vue.component('RatingIcons', RatingIcons)
+Vue.component('PaginatedList', PaginatedList)
 Vue.component('PasswordInput', PasswordInput)
 Vue.component('Price', Price)
 Vue.component('ValidationProvider', ValidationProvider)

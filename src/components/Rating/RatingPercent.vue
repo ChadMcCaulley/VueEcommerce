@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex align-center my-2 progress-bar-container">
+  <div
+    @click="$emit('click', numStars)"
+    class="d-flex align-center my-2 progress-bar-container"
+  >
     {{ numStars }} Star
     <v-progress-linear
       :value="percent * 100"
@@ -24,11 +27,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div.progress-bar-container:hover {
-  .progress-bar {
-    box-shadow: 4px 5px 6px 0px rgba(0,0,0,0.25);
+div.progress-bar-container {
+  &:hover{
+    text-decoration: underline;
+    .progress-bar {
+      box-shadow: 4px 5px 6px 0px rgba(0,0,0,0.25);
+    }
   }
-  text-decoration: underline;
 }
 .progress-bar {
   max-width: 180px;
