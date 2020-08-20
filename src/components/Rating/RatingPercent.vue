@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex align-center my-2 progress-bar-container">
+  <div
+    @click="$emit('click', numStars)"
+    class="d-flex align-center my-2 progress-bar-container"
+  >
     {{ numStars }} Star
     <v-progress-linear
       :value="percent * 100"

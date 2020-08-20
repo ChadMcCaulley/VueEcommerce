@@ -1,6 +1,6 @@
 <template>
-  <v-skeleton-loader v-if="!product" />
-  <div v-else>
+  <v-skeleton-loader v-if="loading" />
+  <div v-else class="mx-4">
     <v-row>
       <v-col cols="auto" v-if="product.images.length > 0">
         <image-section :images="product.images"/>
@@ -14,16 +14,12 @@
         <product-purchase-card :product="product" />
       </v-col>
     </v-row>
-    <v-row>
-      Q/A
-    </v-row>
     <v-divider />
     <div class="d-flex">
       <div>
         <h2 class="mb-2"> Customer Reviews </h2>
         <product-rating :product="product"/>
         <v-btn
-          width="270"
           class="mt-4"
           color="secondary"
           block
@@ -36,31 +32,26 @@
         class="mx-4"
         vertical
       />
-      <div>
-        <div
-          v-for="review in reviews"
-          :key="review.id"
-        >
-          <v-list-item-content>
-            <div>
-              <v-icon size="30"> mdi-account-circle </v-icon>
-              {{ review.user.first_name }}
-            </div>
-            <h1
-              class="d-flex align-center review-title"
-            >
-              <rating-icons
-                :rating="review.rating"
-                class="rating-icons"
-              />
-              {{ review.title }}
-            </h1>
-            <p>
-              {{ review.message }}
-            </p>
-          </v-list-item-content>
-        </div>
-      </div>
+      <paginated-list
+        :params="reviewParams"
+        url="/api/reviews/"
+        entityName="review"
+      >
+        <template v-slot:loader="{ entitiesPerPage }">
+          <v-skeleton-loader
+            v-for="n in entitiesPerPage"
+            :key="n"
+            type="sentences"
+          />
+        </template>
+        <template slot-scope="{ entities }">
+          <review
+            v-for="review in entities"
+            :key="review.id"
+            :review="review"
+          />
+        </template>
+      </paginated-list>
     </div>
   </div>
 </template>
@@ -70,6 +61,7 @@ import ImageSection from '@/components/ImageSection'
 import ProductPurchaseCard from '@/components/ProductPurchaseCard'
 import ProductRating from '@/components/Rating/ProductRating'
 import RatingIconsWithBreakdown from '@/components/Rating/RatingIconsWithBreakdown'
+import Review from '@/components/Review'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -78,34 +70,34 @@ export default {
     ImageSection,
     ProductPurchaseCard,
     ProductRating,
-    RatingIconsWithBreakdown
+    RatingIconsWithBreakdown,
+    Review
+  },
+  props: {
+    numStars: { type: [String, Number], required: false, default: null }
   },
   computed: {
     ...mapGetters({
-      product: 'product/product',
-      reviews: 'review/reviews'
-    })
+      product: 'product/product'
+    }),
+    reviewParams () {
+      const params = { product__id: this.product.id }
+      if (this.numStars) params.rating = this.numStars
+      return params
+    }
   },
+  data: () => ({
+    loading: true
+  }),
   methods: {
     ...mapActions({
-      getProduct: 'product/getProduct',
-      getReviews: 'review/getProductReviews'
+      getProduct: 'product/getProduct'
     })
   },
   mounted () {
-    this.getProduct(this.$route.params.id)
-    this.getReviews({ productId: this.$route.params.id })
+    this.getProduct(this.$route.params.id).then(() => {
+      this.loading = false
+    })
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.review-title {
-  font-weight: bold;
-  font-size: .9rem;
-}
-.rating-icons {
-  transform-origin: left;
-  transform: scale(0.9);
-}
-</style>

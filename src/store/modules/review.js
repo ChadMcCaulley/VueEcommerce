@@ -34,7 +34,7 @@ export default {
       try {
         let page = 1
         if ('page' in params) page = params.page
-        const res = await axios.get('/api/reviews/', { page, product_id: params.productId })
+        const res = await axios.get('/api/reviews/', { params: { page, product__id: params.productId } })
         commit('setReviews', res.data.results)
         commit('setTotalReviews', Math.floor(res.data.count / state.reviewsPerPage))
       } catch (err) {

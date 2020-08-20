@@ -9,7 +9,7 @@ module.exports = {
         target: 'http://localhost:8000',
         ws: true,
         changeOrigin: true,
-        pathRewrite: { '^/dev': '' }
+        pathRewrite: { '/dev': '' }
       }
     }
   },

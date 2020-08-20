@@ -18,36 +18,36 @@
     <v-col>
       <v-img
         :src="heroImage.image"
-        :width="heroImageWidth"
-        :height="heroImageWidth"
+        :width="heroImageSize"
+        :height="heroImageSize"
       />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import WindowResize from '@/mixins/windowResize'
-
 export default {
   name: 'ImageSection',
-  mixins: [WindowResize],
   props: {
     images: { type: Array, required: true }
+  },
+  computed: {
+    heroImageSize () {
+      if (this.$vuetify.breakpoint.xl) return 600
+      if (this.$vuetify.breakpoint.lg) return 500
+      if (this.$vuetify.breakpoint.md) return 400
+      return 300
+    }
   },
   data: function () {
     const heroImage = this.images[0]
     return {
-      heroImage,
-      heroImageWidth: 500
+      heroImage
     }
   },
   watch: {
     images () {
       this.heroImage = this.images[0]
-    },
-    window () {
-      if (this.window.width > 1280) this.heroImageWidth = 500
-      else this.heroImageWidth = 300
     }
   },
   methods: {

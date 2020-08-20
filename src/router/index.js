@@ -34,7 +34,8 @@ const routes = [
   {
     path: '/product/:title/:id',
     name: 'product',
-    component: Product
+    component: Product,
+    props: true
   },
   {
     path: '/product/:title/:id/review-form',

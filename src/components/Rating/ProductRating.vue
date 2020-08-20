@@ -2,7 +2,10 @@
   <v-container v-if="!actualBreakdown">
     <v-skeleton-loader type="article"/>
   </v-container>
-  <div v-else>
+  <div
+    v-else
+    style="min-width: 280px"
+  >
     <div class="d-flex align-center">
       <rating-icons :rating="product.rating" />
       <div
@@ -21,6 +24,7 @@
       :to="{ name: 'product', params: { id: product.id, title: product.title } }"
     >
       <rating-percent
+        @click="redirectToReviews"
         :num-stars="breakdown[0]"
         :percent="breakdown[1]"
       />
@@ -52,6 +56,14 @@ export default {
     },
     ratingsBreakdown () {
       return Object.entries(this.actualBreakdown)
+    }
+  },
+  methods: {
+    /**
+     * Redirect the user to the review section with the appropriate params
+     */
+    redirectToReviews (numStars) {
+      this.routeToPage('product', { id: this.product.id, title: this.product.title, numStars })
     }
   }
 }
