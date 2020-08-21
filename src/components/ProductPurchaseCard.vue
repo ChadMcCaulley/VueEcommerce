@@ -16,6 +16,9 @@
           color="rating"
           class="mb-2"
           block
+          :loading="loading"
+          :disabled="loading"
+          @click="addToCart"
         >
           <v-icon class="mr-auto">mdi-cart</v-icon> <div class="mx-auto">Add To Cart</div>
         </v-btn>
@@ -31,6 +34,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'ProductPurchaseCard',
   props: {
@@ -47,8 +52,21 @@ export default {
     }
   },
   data: () => ({
-    quantity: 1
-  })
+    quantity: 1,
+    loading: false
+  }),
+  methods: {
+    ...mapActions({
+      addProductToOrder: 'order/addProductToOrder'
+    }),
+    addToCart () {
+      this.loading = true
+      const params = { productId: this.product.id, quantity: this.quantity }
+      this.addProductToOrder(params).then(() => {
+        this.loading = false
+      })
+    }
+  }
 }
 </script>
 

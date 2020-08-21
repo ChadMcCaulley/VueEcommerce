@@ -34,7 +34,7 @@ Vue.mixin(mixins)
 Vue.mixin({ filters })
 
 Vue.use(VueCookies)
-Vue.$cookies.config('7d')
+Vue.$cookies.config('30d')
 
 new Vue({
   router,

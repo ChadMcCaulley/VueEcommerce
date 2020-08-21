@@ -2,6 +2,7 @@
   <v-footer
     v-bind="$props"
     color="secondary lighten-1"
+    class="mt-4"
     padless
   >
     <v-row

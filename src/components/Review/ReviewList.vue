@@ -1,8 +1,24 @@
 <template>
   <div :class="mobile ? null : 'd-flex'">
-    <div style="max-width: 280px;">
+    <div
+      style="max-width: 280px;"
+    >
       <h2 class="mb-2"> Customer Reviews </h2>
-      <product-rating :product="product"/>
+      <product-rating :product="product">
+        <div
+          v-if="numStars != null"
+          class="text-center"
+        >
+          <v-divider />
+          <v-btn
+            text
+            color="primary"
+            @click="showAllReviews"
+          >
+            View All Reviews
+          </v-btn>
+        </div>
+      </product-rating>
       <v-btn
         class="mt-4"
         color="secondary"
@@ -42,7 +58,7 @@
 <script>
 import ProductRating from '@/components/Rating/ProductRating'
 import Review from '@/components/Review/Review'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'ReviewList',
@@ -64,6 +80,14 @@ export default {
     },
     mobile () {
       return this.$vuetify.breakpoint.smAndDown
+    }
+  },
+  methods: {
+    ...mapMutations({
+      setNumStars: 'review/setNumStars'
+    }),
+    showAllReviews () {
+      this.setNumStars(null)
     }
   }
 }

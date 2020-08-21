@@ -1,5 +1,17 @@
 <template>
-  <v-row>
+  <v-carousel
+    v-if="mobile"
+    show-arrows-on-hover
+    :height="heroImageSize"
+  >
+    <v-carousel-item
+      v-for="image in images"
+      :key="image.id"
+      :src="image.image"
+      :width="heroImageSize"
+    ></v-carousel-item>
+  </v-carousel>
+  <v-row v-else>
     <v-col
       cols="auto"
       class="pr-0"
@@ -33,10 +45,13 @@ export default {
   },
   computed: {
     heroImageSize () {
-      if (this.$vuetify.breakpoint.xl) return 600
-      if (this.$vuetify.breakpoint.lg) return 500
-      if (this.$vuetify.breakpoint.md) return 400
-      return 300
+      const breakpoint = this.$vuetify.breakpoint
+      if (breakpoint.xl) return 600
+      if (breakpoint.lg) return 500
+      return 400
+    },
+    mobile () {
+      return this.$vuetify.breakpoint.xs
     }
   },
   data: function () {

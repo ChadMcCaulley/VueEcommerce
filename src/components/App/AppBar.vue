@@ -43,7 +43,7 @@
       v-else-if="desktop && loggedIn"
       text
       color="warning"
-      @click="$emit('logOut')"
+      @click="$emit('log-out')"
     >
       Log Out
     </v-btn>
@@ -56,7 +56,7 @@
     >
       <v-badge
         color="secondary"
-        content="1"
+        :content="`${badgeNumber}`"
         overlap
       >
         <v-icon> mdi-cart </v-icon>
@@ -70,7 +70,8 @@ export default {
   name: 'AppBar',
   props: {
     value: { type: Boolean, required: true },
-    loggedIn: { type: Boolean, required: true }
+    loggedIn: { type: Boolean, required: true },
+    badgeNumber: { type: Number, required: false, default: 0 }
   },
   computed: {
     desktop () {

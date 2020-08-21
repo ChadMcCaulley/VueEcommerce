@@ -1,16 +1,17 @@
 <template>
-  <v-app>
+  <v-app id="main">
     <nav-drawer
       v-model="drawer"
       :logged-in="loggedIn"
-      @logOut="logOut"
+      @log-out="logOut"
     />
     <app-bar
       v-model="drawer"
       :logged-in="loggedIn"
-      @logOut="logOut"
+      :badge-number="numOrders"
+      @log-out="logOut"
     />
-    <v-main id="main">
+    <v-main>
       <router-view id="app-view" />
       <snackbar />
     </v-main>
@@ -38,15 +39,26 @@ export default {
   }),
   methods: {
     ...mapActions({
+      logOut: 'auth/logOut',
       refreshToken: 'auth/refreshToken',
-      logOut: 'auth/logOut'
+      getCurrentOrder: 'order/getCurrentOrder'
     })
   },
   computed: {
-    ...mapGetters({ loggedIn: 'auth/loggedIn' })
+    ...mapGetters({
+      loggedIn: 'auth/loggedIn',
+      order: 'order/order'
+    }),
+    numOrders () {
+      if (!this.order) return 0
+      return this.order.length
+    }
   },
-  mounted () {
-    this.refreshToken()
+  async mounted () {
+    await Promise.all([
+      this.refreshToken(),
+      this.getCurrentOrder()
+    ])
   }
 }
 </script>
