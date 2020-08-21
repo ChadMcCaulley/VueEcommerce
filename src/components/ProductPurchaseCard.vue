@@ -61,7 +61,7 @@ export default {
     }),
     addToCart () {
       this.loading = true
-      const params = { productId: this.product.id, quantity: this.quantity }
+      const params = { product: this.product, quantity: this.quantity }
       this.addProductToOrder(params).then(() => {
         this.loading = false
       })

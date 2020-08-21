@@ -70,4 +70,9 @@ export default {
 #main {
   background-color: var(--v-background-base);
 }
+.title {
+  font-size: 1.05rem;
+  line-height: 1.35;
+  word-break: keep-all;
+}
 </style>

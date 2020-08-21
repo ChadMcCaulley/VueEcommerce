@@ -45,7 +45,7 @@ export default {
     /**
      * Add the quantity of the given product to an existing order or start a new order
      * @param {Object} context
-     * @param {Object} params - productId, quantity
+     * @param {Object} params - product, quantity
      */
     async addProductToOrder ({ commit, dispatch, rootState }, params) {
       try {
@@ -58,28 +58,28 @@ export default {
         commit('setSnackbar', { message: 'Unable to add product to order', color: 'error' }, { root: true })
       }
     },
-    // /**
-    //  * Update the order in the database
-    //  * @param {Object} context
-    //  * @param {Object} params - productId, quantity, user
-    //  */
-    // updateOrderDatabase ({ state }, params) {
-    //   return 'hi'
-    // },
+    /**
+     * Update the order in the database
+     * @param {Object} context
+     * @param {Object} params - product, quantity, user
+     */
+    updateOrderDatabase ({ state }, params) {
+      return 'hi'
+    },
     /**
      * Update the order in the user's cookies
      * @param {Object} context
-     * @param {Object} params - productId, quantity
+     * @param {Object} params - product, quantity
      */
     updateOrderCookie ({ state }, params) {
       const currOrder = state.order
-      const newValue = { productId: params.productId, quantity: params.quantity }
+      const newValue = { product: params.product, quantity: params.quantity }
       let orders = [newValue]
       if (currOrder) {
         orders = [...currOrder]
         let updated = false
         for (let i = 0; i < orders.length; i++) {
-          if (orders[i].productId === params.productId) {
+          if (orders[i].product === params.product) {
             updated = true
             orders[i] = newValue
           }

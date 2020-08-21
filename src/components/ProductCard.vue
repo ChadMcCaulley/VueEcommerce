@@ -63,9 +63,4 @@ a {
 a:hover {
   color: var(--v-primary-base) !important;
 }
-.title {
-  font-size: 1.05rem;
-  line-height: 1.35;
-  word-break: keep-all;
-}
 </style>
