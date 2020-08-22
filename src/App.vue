@@ -50,8 +50,8 @@ export default {
       order: 'order/order'
     }),
     numOrders () {
-      if (!this.order) return 0
-      return this.order.length
+      if (!this.order || !('products' in this.order)) return 0
+      return this.order.products.length
     }
   },
   async mounted () {

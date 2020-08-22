@@ -17,7 +17,7 @@
         text
         rounded
         class="my-2"
-        style="font-size: 0.8rem;"
+        :style="`font-size: ${$vuetify.breakpoint.xs ? 0.7 : 1}rem`"
       >
         {{ link.name }}
       </v-btn>
