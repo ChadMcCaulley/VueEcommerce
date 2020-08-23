@@ -1,8 +1,13 @@
 <template>
   <v-card min-width="150px" max-width="250px">
-    <v-container class="card-container">
-      <h3 class="primary--text"> {{ product.price | price }} </h3>
-      <h3 :class="`${stockStatus.color}--text my-4`"> {{ stockStatus.text }} </h3>
+    <v-container class="card-container title">
+      <div class="primary--text"> {{ product.price | price }} </div>
+      <div
+        :class="`${stockStatus.color}--text mb-4 mt-2`"
+        style="font-weight: normal"
+      >
+        {{ stockStatus.text }}
+      </div>
       <div v-if="product.in_stock">
         <v-select
           v-model="quantity"
@@ -61,7 +66,7 @@ export default {
     }),
     addToCart () {
       this.loading = true
-      const params = { product: this.product, quantity: this.quantity }
+      const params = { productId: this.product.id, quantity: this.quantity }
       this.addProductToOrder(params).then(() => {
         this.loading = false
       })
@@ -69,9 +74,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-h3 {
-  font-weight: normal;
-}
-</style>

@@ -35,11 +35,39 @@ export default {
           const res = await axios.get('/api/orders/', { user__id: user.id, ordered: false })
           order = res.data.result[0]
         } else if (window.$cookies.isKey('cart')) {
-          order = JSON.parse(window.$cookies.get('cart'))
+          const cart = JSON.parse(window.$cookies.get('cart'))
+          const ids = cart.map(item => item.productId)
+          const res = await axios.get('/api/products/', { params: { id__in: ids.join() } })
+          const allProducts = res.data.results
+          const products = cart.map(item => {
+            const product = allProducts.filter(product => product.id === item.productId)
+            return { quantity: item.quantity, product: product[0] }
+          })
+          order = { products }
         }
         commit('setOrder', order)
       } catch (err) {
         commit('setSnackbar', { message: 'Unable to get your latest order', color: 'error' }, { root: true })
+      }
+    },
+    /**
+     * Add the quantity of the given product to an existing order or start a new order
+     * @param {Object} context
+     * @param {String} productId
+     */
+    async removeItemFromOrder ({ commit, dispatch, rootState }, productId) {
+      try {
+        const isLoggedIn = rootState.auth.isLoggedIn
+        if (isLoggedIn) {
+        } else {
+          const currCart = JSON.parse(window.$cookies.get('cart'))
+          const cart = currCart.filter(item => item.productId !== productId)
+          window.$cookies.set('cart', JSON.stringify(cart))
+        }
+        dispatch('getCurrentOrder')
+        commit('setSnackbar', { message: 'Successfully removed item from cart', color: 'success' }, { root: true })
+      } catch (err) {
+        commit('setSnackbar', { message: 'Unable to remove item from cart', color: 'error' }, { root: true })
       }
     },
     /**
@@ -50,12 +78,12 @@ export default {
     async addProductToOrder ({ commit, dispatch, rootState }, params) {
       try {
         const isLoggedIn = rootState.auth.isLoggedIn
-        if (isLoggedIn) dispatch('updateOrderDatabase', { ...params })
-        else dispatch('updateOrderCookie', params)
+        if (isLoggedIn) dispatch('addItemToOrderDatabase', params)
+        else dispatch('addItemToOrderCookie', params)
         dispatch('getCurrentOrder')
-        commit('setSnackbar', { message: 'Items successfully added to your Order', color: 'success' }, { root: true })
+        commit('setSnackbar', { message: 'Items successfully added to your cart', color: 'success' }, { root: true })
       } catch (err) {
-        commit('setSnackbar', { message: 'Unable to add product to order', color: 'error' }, { root: true })
+        commit('setSnackbar', { message: 'Unable to add product to cart', color: 'error' }, { root: true })
       }
     },
     /**
@@ -63,7 +91,7 @@ export default {
      * @param {Object} context
      * @param {Object} params - product, quantity, user
      */
-    updateOrderDatabase ({ state }, params) {
+    addItemToOrderDatabase ({ state }, params) {
       return 'hi'
     },
     /**
@@ -71,20 +99,18 @@ export default {
      * @param {Object} context
      * @param {Object} params - product, quantity
      */
-    updateOrderCookie ({ state }, params) {
-      const currOrder = state.order
-      const newValue = { product: params.product, quantity: params.quantity }
-      let orders = [newValue]
-      if (currOrder) {
-        orders = [...currOrder]
+    addItemToOrderCookie ({ state }, params) {
+      let orders = [params]
+      if (window.$cookies.isKey('cart')) {
+        orders = JSON.parse(window.$cookies.get('cart'))
         let updated = false
         for (let i = 0; i < orders.length; i++) {
-          if (orders[i].product === params.product) {
+          if (orders[i].productId === params.productId) {
             updated = true
-            orders[i] = newValue
+            orders[i] = params
           }
         }
-        if (!updated) orders.push(newValue)
+        if (!updated) orders.push(params)
       }
       window.$cookies.set('cart', JSON.stringify(orders))
     }

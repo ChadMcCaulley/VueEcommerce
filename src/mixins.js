@@ -9,6 +9,18 @@ export default {
       const route = { name: pageName }
       if (typeof params === 'object') route.params = params
       if (this.$route.name !== pageName) this.$router.push(route)
+    },
+    /**
+     * Get the parent object by one of its key value pairs
+     * @param {Array} objects
+     * @param {String, Number} value
+     * @param {String} key
+     */
+    getObjByValue (objects, value, key) {
+      for (const obj in objects) {
+        if (obj[key] === value) return obj
+      }
+      return null
     }
   }
 }
