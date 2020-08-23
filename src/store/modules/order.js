@@ -59,6 +59,7 @@ export default {
       try {
         const isLoggedIn = rootState.auth.isLoggedIn
         if (isLoggedIn) {
+          await axios.delete(`/api/order_product/${productId}`)
         } else {
           const currCart = JSON.parse(window.$cookies.get('cart'))
           const cart = currCart.filter(item => item.productId !== productId)
@@ -77,8 +78,9 @@ export default {
      */
     async addProductToOrder ({ commit, dispatch, rootState }, params) {
       try {
+        if (!('productId' in params)) throw new Error('Invalid Item')
         const isLoggedIn = rootState.auth.isLoggedIn
-        if (isLoggedIn) dispatch('addItemToOrderDatabase', params)
+        if (isLoggedIn) await dispatch('addItemToOrderDatabase', params)
         else dispatch('addItemToOrderCookie', params)
         dispatch('getCurrentOrder')
         commit('setSnackbar', { message: 'Items successfully added to your cart', color: 'success' }, { root: true })
@@ -91,8 +93,8 @@ export default {
      * @param {Object} context
      * @param {Object} params - product, quantity, user
      */
-    addItemToOrderDatabase ({ state }, params) {
-      return 'hi'
+    async addItemToOrderDatabase ({ state }, params) {
+      // const product = await axios.get(`/api/products/${params.productId}`)
     },
     /**
      * Update the order in the user's cookies

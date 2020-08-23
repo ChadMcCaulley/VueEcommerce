@@ -4,10 +4,10 @@
     <v-skeleton-loader
       v-if="loading"
     />
-    <v-sheet v-else-if="order && order.products">
+    <v-sheet v-else-if="order && 'products' in order">
       <div
-        v-for="item in order.products"
-        :key="item.product.id"
+        v-for="(item, index) in order.products"
+        :key="index"
       >
         <v-row class="mx-4">
           <v-col cols="auto">
@@ -122,7 +122,8 @@ export default {
      */
     updateCurrentOrder (item) {
       this.updatingOrder = true
-      this.addProductToOrder(item).then(() => {
+      const params = { productId: item.product.id, quantity: item.quantity }
+      this.addProductToOrder(params).then(() => {
         this.updatingOrder = false
       })
     },
