@@ -27,7 +27,7 @@
             >
               {{ stockStatus(item.product).text }}
             </div>
-            <div class="d-flex">
+            <div class="d-flex mt-2">
               <v-select
                 v-model="item.quantity"
                 label="Quantity"
@@ -63,7 +63,7 @@
         </v-row>
       </div>
       <v-divider />
-      <div class="text-end mr-4 title">
+      <div class="text-end mr-4 py-4 title">
         Subtotal ({{ totalItems }} {{ totalItems === 1 ? 'item' : 'items' }}): {{ totalPrice | price }}
       </div>
     </v-sheet>
