@@ -67,6 +67,11 @@
         Subtotal ({{ totalItems }} {{ totalItems === 1 ? 'item' : 'items' }}): {{ totalPrice | price }}
       </div>
     </v-sheet>
+    <v-sheet v-else>
+      <h2 class="text-center py-4">
+        No Items Found in Cart
+      </h2>
+    </v-sheet>
   </div>
 </template>
 

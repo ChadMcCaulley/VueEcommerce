@@ -3,7 +3,7 @@
     <v-list-item-content>
       <div>
         <v-icon size="30"> mdi-account-circle </v-icon>
-        {{ review.user.first_name }}
+        {{ review.user.username }}
       </div>
       <h1
         class="d-flex align-center review-title"
