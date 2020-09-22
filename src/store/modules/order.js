@@ -28,12 +28,12 @@ export default {
      */
     async getCurrentOrder ({ commit, rootState }) {
       try {
-        const user = rootState.auth.user
-        const isLoggedIn = rootState.auth.isLoggedIn
+        const isLoggedIn = rootState.auth.loggedIn
         let order = null
-        if (user && isLoggedIn) {
-          const res = await axios.get('/api/orders/', { user__id: user.id, ordered: false })
-          order = res.data.result[0]
+        if (isLoggedIn) {
+          const res = await axios.get('/api/orders/latest')
+          console.log(res)
+          order = res.data.results[0]
         } else if (window.$cookies.isKey('cart')) {
           const cart = JSON.parse(window.$cookies.get('cart'))
           const ids = cart.map(item => item.productId)

@@ -121,7 +121,7 @@ export default {
         first_name: this.firstName,
         last_name: this.lastName,
         email: this.email,
-        password: this.password,
+        password1: this.password,
         password2: this.confirmPassword
       }
       await this.$store.dispatch('auth/registration', params)
@@ -129,6 +129,7 @@ export default {
       this.loading = false
       this.failed = true
       this.password = null
+      this.confirmPassword = null
       this.$refs.observer.reset()
     }
   }
