@@ -35,7 +35,7 @@
         v-else
         block
         color="warning"
-        @click="$emit('logOut')"
+        @click="$emit('log-out')"
       >
         Log Out
       </v-btn>
