@@ -34,6 +34,7 @@ export default {
       try {
         const res = await axios.post('/auth/login/', userInfo)
         dispatch('setLoggedInValues', res.data)
+        await dispatch('order/getCurrentOrder', { root: true })
       } catch (err) {
         commit('setSnackbar', { message: 'Failed to log in', color: 'error' }, { root: true })
       }
