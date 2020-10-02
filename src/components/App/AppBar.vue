@@ -20,6 +20,7 @@
       solo-inverted
       border-radius
       shaped
+      class="mx-2"
     />
     <v-spacer />
     <div v-if="$vuetify.breakpoint.width > 680 && !loggedIn">

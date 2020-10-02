@@ -3,69 +3,84 @@
     <h1> Shopping Cart </h1>
     <v-skeleton-loader
       v-if="loading"
+      type="card"
     />
-    <v-sheet v-else-if="order && 'products' in order">
-      <div
-        v-for="(item, index) in order.products"
-        :key="index"
-      >
-        <v-row class="mx-4">
-          <v-col cols="auto">
-            <v-img
-              :src="item.product.images[0].image"
-              height="120"
-              width="120"
-            />
-          </v-col>
-          <v-col class="title">
-            <router-link :to="{ name: 'product', params: { title: item.product.title, id: item.product.id } }">
-              {{ item.product.title }}
-            </router-link>
-            <div
-              :class="`${stockStatus(item.product).color}--text`"
-              style="font-weight: normal"
-            >
-              {{ stockStatus(item.product).text }}
-            </div>
-            <div class="d-flex mt-2">
-              <v-select
-                v-model="item.quantity"
-                label="Quantity"
-                outlined
-                filled
-                dense
-                style="max-width: 150px; min-width: 75px"
-                hide-details
-                @change="updateCurrentOrder(item)"
-                :loading="updatingOrder"
-                :items="getPossibleQuantities(item.product)"
+    <div v-else-if="order && order.products.length > 0">
+      <v-sheet>
+        <div
+          v-for="(item, index) in order.products"
+          :key="index"
+        >
+          <v-row class="mx-4">
+            <v-col cols="auto">
+              <v-img
+                :src="item.product.images[0].image"
+                height="120"
+                width="120"
               />
-              <v-divider
-                class="ml-4"
-                vertical
-              />
-              <v-btn
-                @click="deleteItem(item)"
-                text
-                color="error"
-                :loading="removingItem"
-                :disabled="removingItem"
+            </v-col>
+            <v-col class="title">
+              <router-link :to="{ name: 'product', params: { title: item.product.title, id: item.product.id } }">
+                {{ item.product.title }}
+              </router-link>
+              <div
+                :class="`${stockStatus(item.product).color}--text`"
+                style="font-weight: normal"
               >
-                <v-icon> mdi-delete </v-icon> Delete
-              </v-btn>
-            </div>
-          </v-col>
-          <v-col cols="auto">
-            <div class="title">
-              {{ item.product.price | price }}
-            </div>
-          </v-col>
-        </v-row>
+                {{ stockStatus(item.product).text }}
+              </div>
+              <div class="d-flex mt-2">
+                <v-select
+                  v-model="item.quantity"
+                  label="Quantity"
+                  outlined
+                  filled
+                  dense
+                  style="max-width: 150px; min-width: 75px"
+                  hide-details
+                  @change="updateCurrentOrder(item)"
+                  :loading="updatingOrder"
+                  :items="getPossibleQuantities(item.product)"
+                />
+                <v-divider
+                  class="ml-4"
+                  vertical
+                />
+                <v-btn
+                  @click="deleteItem(item)"
+                  text
+                  color="error"
+                  :loading="removingItem"
+                  :disabled="removingItem"
+                >
+                  <v-icon> mdi-delete </v-icon> Delete
+                </v-btn>
+              </div>
+            </v-col>
+            <v-col cols="auto">
+              <div class="title">
+                {{ item.product.price | price }}
+              </div>
+            </v-col>
+          </v-row>
+        </div>
+        <v-divider />
+        <div class="text-end mr-4 py-4 title">
+          Subtotal ({{ totalItems }} {{ totalItems === 1 ? 'item' : 'items' }}): {{ totalPrice | price }}
+        </div>
+      </v-sheet>
+      <div class="mt-2 text-right">
+        <v-btn
+          color="success"
+        >
+          Proceed to Checkout
+        </v-btn>
       </div>
-      <v-divider />
-      <div class="text-end mr-4 py-4 title">
-        Subtotal ({{ totalItems }} {{ totalItems === 1 ? 'item' : 'items' }}): {{ totalPrice | price }}
-      </div>
+    </div>
+    <v-sheet v-else>
+      <h3 class="text-center py-4">
+        No Items Found in Cart
+      </h3>
     </v-sheet>
   </div>
 </template>

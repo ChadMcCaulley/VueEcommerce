@@ -7,6 +7,9 @@
       </v-col>
       <v-col>
         <h2> {{ product.title }} </h2>
+        <router-link :to="{ name: 'product', params: { title: this.product.title, id: this.product.id } }">
+          Visit the {{ product.company.name }} site
+        </router-link>
         <rating-icons-with-breakdown :product="product"/>
         <p> {{ product.description }} </p>
       </v-col>

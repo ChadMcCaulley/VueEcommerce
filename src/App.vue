@@ -55,10 +55,8 @@ export default {
     }
   },
   async mounted () {
-    await Promise.all([
-      this.refreshToken(),
-      this.getCurrentOrder()
-    ])
+    await this.refreshToken()
+    await this.getCurrentOrder()
   }
 }
 </script>
